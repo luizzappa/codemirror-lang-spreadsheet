@@ -28,6 +28,7 @@
     "test": "mocha test/test.js",
     "build": "npm run clean && lezer-generator src/syntax.grammar -o src/parser && rollup -c",
     "prettier-format": "prettier --config .prettierrc --write \"src/**/*.ts\"",
+    "prettier-check": "prettier --check \"src/**/*.ts\"",
     "lint": "eslint --ext .ts --ignore-path .eslintignore .",
     "prepack": "npm run build"
   },
