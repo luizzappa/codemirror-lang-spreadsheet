@@ -4,6 +4,8 @@ Implements spreadsheet functions support for the [CodeMirror](https://codemirror
 
 Includes the CodeMirror `LanguageSupport` and `LRLanguage` grammar.
 
+To build this I used the paper  ["A Grammar for Spreadsheet Formulas Evaluated on Two Large Datasets"](https://fenia266781730.files.wordpress.com/2019/01/07335408.pdf) and [XLParser](https://github.com/spreadsheetlab/XLParser) as a basis.
+
 ### Usage
 
 ```
