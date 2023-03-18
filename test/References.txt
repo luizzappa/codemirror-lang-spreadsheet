@@ -1,0 +1,425 @@
+# Reference relative
+
+A1
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      CellToken
+    )
+  )
+)
+
+# Reference absolute column
+
+$A1
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      CellToken
+    )
+  )
+)
+
+# Reference absolute row
+
+A$1
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      CellToken
+    )
+  )
+)
+
+# Reference absolute column row
+
+$A$1
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      CellToken
+    )
+  )
+)
+
+# Reference named ref
+
+my_range
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      NameToken
+    )
+  )
+)
+
+# Reference vertical range
+
+A:A
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      VerticalRangeToken
+    )
+  )
+)
+
+# Reference vertical absolute range
+
+$A:$A
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      VerticalRangeToken
+    )
+  )
+)
+
+# Reference vertical range two and three chars
+
+AB:XZA
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      VerticalRangeToken
+    )
+  )
+)
+
+# Reference horizontal range
+
+1:1
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      HorizontalRangeToken
+    )
+  )
+)
+
+# Reference horizontal absolute range
+
+$2:$2
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      HorizontalRangeToken
+    )
+  )
+)
+
+# Reference horizontal range two and four digits
+
+34:2340
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      HorizontalRangeToken
+    )
+  )
+)
+
+# Reference error
+
+#REF!
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      RefErrorToken
+    )
+  )
+)
+
+# Reference range
+
+A1:B5
+
+===>
+
+Program(
+  Reference(
+    ReferenceFunctionCall(
+      Reference(
+        ReferenceItem(
+          CellToken
+        )
+      ),
+      Reference(
+        ReferenceItem(
+          CellToken
+        )
+      )
+    )
+  )
+)
+
+# Reference range in parentheses
+
+(A1:B5)
+
+===>
+
+Program(
+  Reference(
+    Reference(
+      ReferenceFunctionCall(
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        )
+      )
+    )
+  )
+)
+
+# Reference hash
+
+A1#
+
+===>
+
+Program(
+  Reference(
+    ReferenceFunctionCall(
+      Reference(
+        ReferenceItem(
+          CellToken
+        )
+      )
+    )
+  )
+)
+
+# Union single
+
+(A1, A2, A3)
+
+===>
+
+Program(
+  Reference(
+    ReferenceFunctionCall(
+      Union(
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        )
+      )
+    )      
+  )
+)
+
+# Union nested
+
+(A1, (A2, A3))
+
+===>
+
+Program(
+  Reference(
+    ReferenceFunctionCall(
+      Union(
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceFunctionCall(
+            Union(
+              Reference(
+                ReferenceItem(
+                  CellToken
+                )
+              ),
+              Reference(
+                ReferenceItem(
+                  CellToken
+                )
+              )
+            )
+          )
+        )
+      )
+    )      
+  )
+)
+
+# Reference sheet prefix
+
+Sheet1!A5
+
+===>
+
+Program(
+  Reference(
+    SheetToken,
+    ReferenceItem(
+      CellToken
+    )
+  )
+)
+
+# Reference sheet prefix with underline
+
+Sheet_1!A5
+
+===>
+
+Program(
+  Reference(
+    SheetToken,
+    ReferenceItem(
+      CellToken
+    )
+  )
+)
+
+# Reference sheet prefix with dot
+
+Sheet.1!A5
+
+===>
+
+Program(
+  Reference(
+    SheetToken,
+    ReferenceItem(
+      CellToken
+    )
+  )
+)
+
+# Reference sheet quoted prefix
+
+'Sheet 1'!A5
+
+===>
+
+Program(
+  Reference(
+    QuoteS,
+    SheetQuotedToken,
+    ReferenceItem(
+      CellToken
+    )
+  )
+)
+
+# Reference sheet quoted prefix with quotes
+
+'Sheet1''s space'!A5
+
+===>
+
+Program(
+  Reference(
+    QuoteS,
+    SheetQuotedToken,
+    ReferenceItem(
+      CellToken
+    )
+  )
+)
+
+# Reference multiple sheets prefix
+
+Sheet1:Sheet2!B7:D13
+
+===>
+
+Program(
+  Reference(
+    ReferenceFunctionCall(
+      Reference(
+        MultipleSheetsToken
+        ReferenceItem(
+          CellToken
+        )
+      ),
+      Reference(
+        ReferenceItem(
+          CellToken
+        )
+      )
+    )
+  )
+)
+
+# Reference multiple sheets quoted prefix
+
+'Sheet 1:Sheet2'!B7:D13
+
+===>
+
+Program(
+  Reference(
+    ReferenceFunctionCall(
+      Reference(
+        QuoteS,
+        MultipleSheetsQuotedToken,
+        ReferenceItem(
+          CellToken
+        )
+      ),
+      Reference(
+        ReferenceItem(
+          CellToken
+        )
+      )
+    )
+  )
+)

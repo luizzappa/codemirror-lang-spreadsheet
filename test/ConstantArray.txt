@@ -1,0 +1,81 @@
+# ConstantArray with one column and one row without prefix operator
+
+{1}
+
+==>
+
+Program(
+  ConstantArray(
+    ArrayColumns(
+      ArrayRows(
+        ArrayConstant(Constant(NumberToken))
+      )
+    )
+  )
+)
+
+# ConstantArray with one column and one row with prefix operator
+
+{-1}
+
+==>
+
+Program(
+  ConstantArray(
+    ArrayColumns(
+      ArrayRows(
+        ArrayConstant(NumberToken)
+      )
+    )
+  )
+)
+
+# ConstantArray with six columns and one row with prefix operator
+
+{1, "blue", -1, +1, @1, FALSE}
+
+==>
+
+Program(
+  ConstantArray(
+    ArrayColumns(
+      ArrayRows(
+        ArrayConstant(Constant(NumberToken)),
+        ArrayConstant(Constant(TextToken)),
+        ArrayConstant(NumberToken),
+        ArrayConstant(NumberToken),
+        ArrayConstant(NumberToken),
+        ArrayConstant(Constant(BoolToken))
+      )
+    )
+  )
+)
+
+# ConstantArray with two columns and three rows with prefix operator
+
+{
+  -1, "red";
+  FALSE, #NULL!;
+  TRUE, @20
+}
+
+==>
+
+Program(
+  ConstantArray(
+    ArrayColumns(
+      ArrayRows(
+        ArrayConstant(NumberToken),
+        ArrayConstant(Constant(TextToken))
+      ),
+      ArrayRows(
+        ArrayConstant(Constant(BoolToken)),
+        ArrayConstant(Constant(ErrorToken))
+      ),
+      ArrayRows(
+        ArrayConstant(Constant(BoolToken)),
+        ArrayConstant(NumberToken)
+      )
+    )
+  )
+)

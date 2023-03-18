@@ -1,0 +1,195 @@
+# NumberToken without prefix operator
+
+20
+
+===>
+
+Program(
+  Constant(NumberToken)
+)
+
+# NumberToken with plus prefix operator
+
++20
+
+===>
+
+Program(
+  FunctionCall(
+    Constant(NumberToken)
+  )
+)
+
+# NumberToken with minus prefix operator
+
+-20
+
+===>
+
+Program(
+  FunctionCall(
+    Constant(NumberToken)
+  )
+)
+
+# NumberToken with at prefix operator
+
+@20
+
+===>
+
+Program(
+  FunctionCall(
+    Constant(NumberToken)
+  )
+)
+
+# TextToken without inner quotes
+
+"Hello World!"
+
+===>
+
+Program(
+  Constant(TextToken)
+)
+
+# TextToken with inner double quotes
+
+"""Hello"" World!"
+
+===>
+
+Program(
+  Constant(TextToken)
+)
+
+# TextToken with inner single quotes
+
+"'Hello' World!"
+
+===>
+
+Program(
+  Constant(TextToken)
+)
+
+# BoolToken TRUE
+
+TRUE
+
+===>
+
+Program(
+  Constant(BoolToken)
+)
+
+# BoolToken FALSE
+
+FALSE
+
+===>
+
+Program(
+  Constant(BoolToken)
+)
+
+# ErrorToken #NULL!
+
+#NULL!
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #DIV/0!
+
+#DIV/0!
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #VALUE!
+
+#VALUE!
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #NAME?
+
+#NAME?
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #NUM!
+
+#NUM!
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #N/A
+
+#N/A
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #GETTING_DATA
+
+#GETTING_DATA
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #SPILL!
+
+#SPILL!
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# Decimal number
+
+24343210.5312312
+
+===>
+
+Program(
+ Constant(NumberToken)
+)
+
+# Decimal number without integer part
+
+.5312
+
+===>
+
+Program(
+ Constant(NumberToken)
+)

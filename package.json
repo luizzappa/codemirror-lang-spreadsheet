@@ -1,10 +1,35 @@
 {
-  "name": "codemirror-lang-EXAMPLE",
+  "name": "codemirror-lang-spreadsheet",
   "version": "0.1.0",
-  "description": "EXAMPLE language support for CodeMirror",
+  "description": "Spreadsheet language support for CodeMirror",
+  "homepage": "https://github.com/luizzappa/codemirror-lang-spreadsheet",
+  "author": {
+    "name": "Luiz Eduardo Serrão Zappa",
+    "email": "luizzappa@hotmail.com",
+    "url": "https://github.com/luizzappa"
+  },
+  "keywords": [
+    "codemirror",
+    "spreadsheet",
+    "excel",
+    "syntax",
+    "highlight",
+    "autocomplete"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luizzappa/codemirror-lang-spreadsheet"
+  },
+  "bugs": {
+    "url": "https://github.com/luizzappa/codemirror-lang-spreadsheet/issues"
+  },
   "scripts": {
+    "clean": "rm -rf ./dist",
     "test": "mocha test/test.js",
-    "prepare": "rollup -c"
+    "build": "npm run clean && lezer-generator src/syntax.grammar -o src/parser && rollup -c",
+    "prettier-format": "prettier --config .prettierrc --write \"src/**/*.ts\"",
+    "lint": "eslint --ext .ts --ignore-path .eslintignore .",
+    "prepack": "npm run build"
   },
   "type": "module",
   "main": "dist/index.cjs",
@@ -22,7 +47,11 @@
   },
   "devDependencies": {
     "@lezer/generator": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
+    "eslint": "^8.36.0",
     "mocha": "^9.0.1",
+    "prettier": "^2.8.4",
     "rollup": "^2.60.2",
     "rollup-plugin-dts": "^4.0.1",
     "rollup-plugin-ts": "^3.0.2",

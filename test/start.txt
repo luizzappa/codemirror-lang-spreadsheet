@@ -1,0 +1,31 @@
+# Formula starting with equal
+
+=1
+
+==>
+
+Program(Constant(NumberToken))
+
+# Formula without equal
+
+1
+
+==>
+
+Program(Constant(NumberToken))
+
+# Formula with space
+
+  =    1     
+
+==>
+
+Program(Constant(NumberToken))
+
+# Formula with Array
+
+{=1}
+
+==>
+
+Program(Constant(NumberToken))

@@ -1,26 +1,180 @@
-@top Program { expression* }
+@top Program { start }
 
-@skip { space | LineComment }
+start { formulaWithEq | formula | arrayFormula }
 
-expression {
-  Identifier |
-  String |
-  Boolean |
-  Application { "(" expression* ")" }
+// Just different ways to pass the formula
+formulaWithEq { eqop formula }
+arrayFormula { openCurlyParen eqop formula closeCurlyParen }
+
+formula {  
+  Reference 
+  | Constant 
+  | FunctionCall 
+  | ConstantArray 
+  | openParen formula closeParen
+}
+
+Constant { NumberToken | TextToken | BoolToken | ErrorToken }
+
+// Arrays
+ConstantArray { openCurlyParen ArrayColumns closeCurlyParen }
+ArrayColumns { ArrayRows (semicolon ArrayRows)* }
+ArrayRows { ArrayConstant (comma ArrayConstant)* }
+ArrayConstant { Constant | arrayPrefixOp NumberToken | RefErrorToken }
+arrayPrefixOp { plusop | minop | at }
+
+// Functions
+FunctionCall {
+  Function Arguments closeParen
+  | (plusop | minop | !unaryPreFix at) formula
+  | formula !unaryPostFix percentop
+  | formulaInfixOp
+}
+formulaInfixOp { 
+    formula !exponentiation expop formula
+  | formula !multiplication mulop formula
+  | formula !multiplication divop formula
+  | formula !addition plusop formula
+  | formula !addition minop formula
+  | formula !concatenation concatop formula
+  | formula !comparsion gtop formula
+  | formula !comparsion eqop formula
+  | formula !comparsion ltop formula
+  | formula !comparsion neqop formula
+  | formula !comparsion gteop formula
+  | formula !comparsion lteop formula
+}
+
+Arguments { Argument (comma Argument)* }
+Argument { formula | "" }
+
+// References
+Reference { 
+  ReferenceItem 
+  | ReferenceFunctionCall
+  | openParen Reference !paren closeParen
+  | referencePrefix ReferenceItem
+}
+
+ReferenceItem { 
+  CellToken 
+  | NameToken 
+  | VerticalRangeToken 
+  | HorizontalRangeToken
+  | RefErrorToken
+}
+
+referencePrefix {
+  SheetToken
+  | QuoteS SheetQuotedToken
+  | MultipleSheetsToken
+  | QuoteS MultipleSheetsQuotedToken
+  | RefErrorToken
+}
+
+ReferenceFunctionCall {
+   Reference !range colon Reference
+ | Reference !union intersecop Reference
+ | openParen Union closeParen
+ | Reference !unaryPostFix hash
+
+}
+
+Union { Reference (!union comma Reference)+ }
+
+@external tokens isIntersecop from "./tokens" { intersecop }
+
+@precedence {
+  paren @left,
+  range @left,
+  union @left,
+  unaryPreFix @left,
+  unaryPostFix @left,
+  exponentiation @left,
+  multiplication @left,
+  addition @left,
+  concatenation @left,
+  comparsion @left
 }
 
 @tokens {
-  Identifier { $[a-zA-Z_\-0-9]+ }
 
-  String { '"' (!["\\] | "\\" _)* '"' }
-
-  Boolean { "#t" | "#f" }
-
-  LineComment { ";" ![\n]* }
+  @precedence { 
+    HorizontalRangeToken,
+    MultipleSheetsQuotedToken,
+    SheetQuotedToken,
+    MultipleSheetsToken,
+    TextToken,
+    SheetToken,
+    NumberToken,
+    Function,
+    VerticalRangeToken,
+    CellToken,
+    BoolToken,
+    NameToken,
+    at,
+    plusop,
+    space
+  }
 
   space { $[ \t\n\r]+ }
 
-  "(" ")"
+  // Symbols
+  at { "@" }
+  comma { "," }
+  colon { ":" }
+  hash { "#" }
+  semicolon { ";" }
+  openParen { "(" }
+  closeParen { ")" }
+  closeCurlyParen { "}" }
+  openCurlyParen { "{" }
+  QuoteS { "'" }
+  decimalSeparator { "." }
+
+  // Operators
+  mulop { "*" }
+  plusop { "+" }
+  divop { "/" }
+  minop { "-" }
+  concatop { "&" }
+  expop { "^" }
+  percentop { "%" }
+  gtop { ">" }
+  eqop { "=" }
+  ltop { "<" }
+  neqop { "<>" }
+  gteop { ">=" }
+  lteop { "<=" }
+
+  // Literals
+  BoolToken { "TRUE" | "FALSE" } // i18n
+  NumberToken { 
+   @digit+ (decimalSeparator @digit*)? 
+   | decimalSeparator @digit+
+  }
+  TextToken { "\"" ( "\"\"" | !["])* "\"" }
+  ErrorToken { "#NULL!" | "#DIV/0!" | "#VALUE!" | "#NAME?" | "#NUM!" | "#N/A" | "#GETTING_DATA" | "#SPILL!" } // i18n
+  RefErrorToken { "#REF!" } // i18n
+
+  Function { $[a-zA-Z_]+ $[a-zA-Z_0-9.]* "(" }
+
+  column { $[$]? @asciiLetter @asciiLetter? @asciiLetter? }
+  row { $[$]? @digit+ }
+  VerticalRangeToken { column ":" column }
+  HorizontalRangeToken { row ":" row }
+  CellToken { column row }
+  NameToken { $[a-zA-Z\\_] $[a-zA-Z0-9_\\\.?€]* }
+
+  normalSheetName { !['\*\[\]\\:/?();{}#=<>&\-^%, ]+ }
+  quotedSheetName { (!['\*\[\]\\:/?] | "''")+ }
+  SheetToken { normalSheetName "!"}
+  SheetQuotedToken { quotedSheetName "'!" }
+  MultipleSheetsToken { normalSheetName ":" normalSheetName "!" }
+  MultipleSheetsQuotedToken { quotedSheetName ":" quotedSheetName "'!"}
+
 }
+
+@skip { space }
 
 @detectDelim

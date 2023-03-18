@@ -1,0 +1,353 @@
+# Single FunctionCall one argument (number)
+
+SUM(1)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Constant(NumberToken)
+      )
+    )
+  )
+)
+
+# Single FunctionCall one argument (boolean)
+
+ISLOGICAL(TRUE)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Constant(BoolToken)
+      )
+    )
+  )
+)
+
+# Single FunctionCall one argument (error)
+
+ISERR(#VALUE!)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Constant(ErrorToken)
+      )
+    )
+  )
+)
+
+# Single FunctionCall two arguments (text and number)
+
+RIGHT("Hello", 3)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Constant(TextToken)
+      ),
+      Argument(
+        Constant(NumberToken)
+      )
+    )
+  )
+)
+
+# Single FunctionCall three empty arguments
+
+IF(,,)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument,
+      Argument,
+      Argument
+    )
+  )
+)
+
+# Nested FunctionCall 
+
+SUM(1,2 + SUM(3, 4), 1)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Constant(NumberToken)
+      ),
+      Argument(
+        FunctionCall(
+          Constant(NumberToken),
+          FunctionCall(
+            Function,
+            Arguments(
+              Argument(
+                Constant(NumberToken)
+              ),
+              Argument(
+                Constant(NumberToken)
+              )
+            )
+          )
+        )
+      ),
+      Argument(
+        Constant(NumberToken)
+      )
+    )
+  )
+)
+
+# Concatenation
+
+"Hello" & " " & "World!"
+
+===>
+
+Program(
+  FunctionCall(
+    FunctionCall(
+      Constant(TextToken),
+      Constant(TextToken)
+    ),
+    Constant(TextToken)
+  )
+)
+
+
+# Formula with percent operator
+
+(1+2)%
+
+===>
+
+Program(
+  FunctionCall(
+    FunctionCall(
+      Constant(NumberToken),
+      Constant(NumberToken)
+    )
+  )
+)
+
+
+# Comparsion
+
+10 >= 2
+
+===>
+
+Program(
+  FunctionCall(
+    Constant(NumberToken),
+    Constant(NumberToken)
+  )
+)
+
+# Addition
+
+1 + 1
+
+==>
+
+Program(
+  FunctionCall(
+    Constant(NumberToken),
+    Constant(NumberToken)
+  )
+)
+
+# Addition with prefix operator
+
+1 + -1
+
+==>
+
+Program(
+  FunctionCall(
+    Constant(NumberToken),
+    FunctionCall(
+      Constant(NumberToken)
+    )
+  )
+)
+
+# Subtraction
+
+1 - 1
+
+==>
+
+Program(
+  FunctionCall(
+    Constant(NumberToken),
+    Constant(NumberToken)
+  )
+)
+
+# Multiplication
+
+1 * 1
+
+==>
+
+Program(
+  FunctionCall(
+    Constant(NumberToken),
+    Constant(NumberToken)
+  )
+)
+
+# Division
+
+1 / 1
+
+==>
+
+Program(
+  FunctionCall(
+    Constant(NumberToken),
+    Constant(NumberToken)
+  )
+)
+
+# Math operation order
+
+2 + 4 * 3% * 2 + 4 / 2^3 - 1
+
+==>
+
+Program(
+  FunctionCall(
+    FunctionCall(
+      FunctionCall(
+        Constant(NumberToken),
+        FunctionCall(
+          FunctionCall(
+            Constant(NumberToken),
+            FunctionCall(
+              Constant(NumberToken)
+            )
+          ),
+          Constant(NumberToken)
+        )
+      ),
+      FunctionCall(
+        Constant(NumberToken),
+        FunctionCall(
+          Constant(NumberToken),
+          Constant(NumberToken)
+        )
+      )
+    ),
+    Constant(NumberToken)
+  )
+)
+
+# Parentheses in operations
+
+2 * ( 3 + 2 )
+
+===>
+
+Program(
+  FunctionCall(
+    Constant(NumberToken),
+    FunctionCall(
+      Constant(NumberToken),
+      Constant(NumberToken)
+    )
+  )
+)
+
+# Intersect operator
+
+SUM(A1:A3 A2:A3)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Reference(
+          ReferenceFunctionCall(
+            Reference(
+              ReferenceFunctionCall(
+                Reference(ReferenceItem(CellToken)),
+                Reference(ReferenceItem(CellToken))
+              )
+            ),
+            Reference(
+              ReferenceFunctionCall(
+                Reference(ReferenceItem(CellToken)),
+                Reference(ReferenceItem(CellToken))
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+# Intersect operator with named range
+
+SUM((Total_Cost Jan):(Total_Cost Apr))
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Reference(
+          ReferenceFunctionCall(
+            Reference(
+              Reference(
+                ReferenceFunctionCall(
+                  Reference(ReferenceItem(NameToken)),
+                  Reference(ReferenceItem(NameToken))
+                )
+              )
+            ),
+            Reference(
+              Reference(
+                ReferenceFunctionCall(
+                  Reference(ReferenceItem(NameToken)),
+                  Reference(ReferenceItem(NameToken))
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
