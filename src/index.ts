@@ -26,7 +26,7 @@ export const spreadsheetLanguage = LRLanguage.define({
         // '( )': t.paren
       })
     ]
-  }),
+  })
   // languageData: {
   //   commentTokens: { line: ';' }
   // }
