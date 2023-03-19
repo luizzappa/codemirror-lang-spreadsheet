@@ -19,17 +19,17 @@ export const spreadsheetLanguage = LRLanguage.define({
         Application: foldInside
       }),
       styleTags({
-        Identifier: t.variableName,
-        Boolean: t.bool,
-        String: t.string,
-        LineComment: t.lineComment,
-        '( )': t.paren
+        CellToken: t.variableName,
+        BoolToken: t.bool
+        // String: t.string,
+        // LineComment: t.lineComment,
+        // '( )': t.paren
       })
     ]
   }),
-  languageData: {
-    commentTokens: { line: ';' }
-  }
+  // languageData: {
+  //   commentTokens: { line: ';' }
+  // }
 });
 
 export function spreadsheet() {
