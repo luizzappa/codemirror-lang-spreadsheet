@@ -69,17 +69,17 @@ const spreadsheetLanguage = language.LRLanguage.define({
                 Application: language.foldInside
             }),
             highlight.styleTags({
-                Identifier: highlight.tags.variableName,
-                Boolean: highlight.tags.bool,
-                String: highlight.tags.string,
-                LineComment: highlight.tags.lineComment,
-                '( )': highlight.tags.paren
+                CellToken: highlight.tags.variableName,
+                BoolToken: highlight.tags.bool
+                // String: t.string,
+                // LineComment: t.lineComment,
+                // '( )': t.paren
             })
         ]
     }),
-    languageData: {
-        commentTokens: { line: ';' }
-    }
+    // languageData: {
+    //   commentTokens: { line: ';' }
+    // }
 });
 function spreadsheet() {
     return new language.LanguageSupport(spreadsheetLanguage);

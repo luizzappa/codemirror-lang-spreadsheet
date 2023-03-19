@@ -65,17 +65,17 @@ const spreadsheetLanguage = LRLanguage.define({
                 Application: foldInside
             }),
             styleTags({
-                Identifier: tags.variableName,
-                Boolean: tags.bool,
-                String: tags.string,
-                LineComment: tags.lineComment,
-                '( )': tags.paren
+                CellToken: tags.variableName,
+                BoolToken: tags.bool
+                // String: t.string,
+                // LineComment: t.lineComment,
+                // '( )': t.paren
             })
         ]
     }),
-    languageData: {
-        commentTokens: { line: ';' }
-    }
+    // languageData: {
+    //   commentTokens: { line: ';' }
+    // }
 });
 function spreadsheet() {
     return new LanguageSupport(spreadsheetLanguage);
