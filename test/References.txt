@@ -197,17 +197,15 @@ Program(
 
 Program(
   Reference(
-    Reference(
-      ReferenceFunctionCall(
-        Reference(
-          ReferenceItem(
-            CellToken
-          )
-        ),
-        Reference(
-          ReferenceItem(
-            CellToken
-          )
+    ReferenceFunctionCall(
+      Reference(
+        ReferenceItem(
+          CellToken
+        )
+      ),
+      Reference(
+        ReferenceItem(
+          CellToken
         )
       )
     )

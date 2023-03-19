@@ -330,19 +330,15 @@ Program(
         Reference(
           ReferenceFunctionCall(
             Reference(
-              Reference(
-                ReferenceFunctionCall(
-                  Reference(ReferenceItem(NameToken)),
-                  Reference(ReferenceItem(NameToken))
-                )
+              ReferenceFunctionCall(
+                Reference(ReferenceItem(NameToken)),
+                Reference(ReferenceItem(NameToken))
               )
             ),
             Reference(
-              Reference(
-                ReferenceFunctionCall(
-                  Reference(ReferenceItem(NameToken)),
-                  Reference(ReferenceItem(NameToken))
-                )
+              ReferenceFunctionCall(
+                Reference(ReferenceItem(NameToken)),
+                Reference(ReferenceItem(NameToken))
               )
             )
           )

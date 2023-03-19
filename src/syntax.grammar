@@ -7,7 +7,7 @@ formulaWithEq { eqop formula }
 arrayFormula { openCurlyParen eqop formula closeCurlyParen }
 
 formula {  
-  Reference 
+  referenceWrap
   | Constant 
   | FunctionCall 
   | ConstantArray 
@@ -49,10 +49,14 @@ Arguments { Argument (comma Argument)* }
 Argument { formula | "" }
 
 // References
+referenceWrap {
+  Reference
+  | openParen Reference !paren closeParen
+}
+
 Reference { 
   ReferenceItem 
   | ReferenceFunctionCall
-  | openParen Reference !paren closeParen
   | referencePrefix ReferenceItem
 }
 
@@ -73,8 +77,8 @@ referencePrefix {
 }
 
 ReferenceFunctionCall {
-   Reference !range colon Reference
- | Reference !union intersecop Reference
+   referenceWrap !range colon referenceWrap
+ | referenceWrap !union intersecop referenceWrap
  | openParen Union closeParen
  | Reference !unaryPostFix hash
 
