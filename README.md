@@ -6,13 +6,19 @@ Includes the CodeMirror `LanguageSupport` and `LRLanguage` grammar.
 
 To build this I used the paper  ["A Grammar for Spreadsheet Formulas Evaluated on Two Large Datasets"](https://fenia266781730.files.wordpress.com/2019/01/07335408.pdf) and [XLParser](https://github.com/spreadsheetlab/XLParser) as a basis.
 
+### Installation
+
+```
+npm install codemirror-lang-spreadsheet
+```
+
 ### Usage
 
 ```
-import { spreadsheetLanguage } from "@luizzappa/codemirror-lang-spreadsheet"
+import { spreadsheet } from "codemirror-lang-spreadsheet"
 ```
 
-For a complete demo with highlight, autocomplete and prettier go to:
+For a complete demo with highlighting, autocomplete and prettier go to:
 
 ### Maintainers
 
