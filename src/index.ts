@@ -19,11 +19,21 @@ export const spreadsheetLanguage = LRLanguage.define({
         Application: foldInside
       }),
       styleTags({
-        CellToken: t.variableName,
-        BoolToken: t.bool
-        // String: t.string,
-        // LineComment: t.lineComment,
-        // '( )': t.paren
+        // References
+        'Reference/...': t.color,
+        RefErrorToken: t.invalid,
+        // Constants
+        BoolToken: t.bool,
+        ErrorToken: t.invalid,
+        NumberToken: t.number,
+        TextToken: t.string,
+        // Functions
+        Function: t.function(t.name),
+        // Symbols
+        OpenParen: t.name,
+        CloseParen: t.name,
+        '[ ]': t.squareBracket,
+        '{ }': t.brace
       })
     ]
   })
