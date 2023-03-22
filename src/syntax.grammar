@@ -11,7 +11,7 @@ formula {
   | Constant 
   | FunctionCall 
   | ConstantArray 
-  | openParen formula closeParen
+  | OpenParen formula CloseParen
 }
 
 Constant { NumberToken | TextToken | BoolToken | ErrorToken }
@@ -25,7 +25,7 @@ arrayPrefixOp { plusop | minop | at }
 
 // Functions
 FunctionCall {
-  Function Arguments closeParen
+  Function Arguments CloseParen
   | (plusop | minop | !unaryPreFix at) formula
   | formula !unaryPostFix percentop
   | formulaInfixOp
@@ -51,7 +51,7 @@ Argument { formula | "" }
 // References
 referenceWrap {
   Reference
-  | openParen Reference !paren closeParen
+  | OpenParen Reference !paren CloseParen
 }
 
 Reference { 
@@ -79,7 +79,7 @@ referencePrefix {
 ReferenceFunctionCall {
    referenceWrap !range colon referenceWrap
  | referenceWrap !union intersecop referenceWrap
- | openParen Union closeParen
+ | OpenParen Union CloseParen
  | Reference !unaryPostFix hash
 
 }
@@ -129,8 +129,8 @@ Union { Reference (!union comma Reference)+ }
   colon { ":" }
   hash { "#" }
   semicolon { ";" }
-  openParen { "(" }
-  closeParen { ")" }
+  OpenParen[closedBy=CloseParen] { "(" }
+  CloseParen[openedBy="OpenParen | Function"] { ")" }
   closeCurlyParen { "}" }
   openCurlyParen { "{" }
   QuoteS { "'" }
@@ -161,7 +161,7 @@ Union { Reference (!union comma Reference)+ }
   ErrorToken { "#NULL!" | "#DIV/0!" | "#VALUE!" | "#NAME?" | "#NUM!" | "#N/A" | "#GETTING_DATA" | "#SPILL!" } // i18n
   RefErrorToken { "#REF!" } // i18n
 
-  Function { $[a-zA-Z_]+ $[a-zA-Z_0-9.]* "(" }
+  Function[closedBy=CloseParen] { $[a-zA-Z_]+ $[a-zA-Z_0-9.]* OpenParen }
 
   column { $[$]? @asciiLetter @asciiLetter? @asciiLetter? }
   row { $[$]? @digit+ }
@@ -180,5 +180,3 @@ Union { Reference (!union comma Reference)+ }
 }
 
 @skip { space }
-
-@detectDelim
