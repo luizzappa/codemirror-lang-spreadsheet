@@ -11,7 +11,8 @@ Program(
       Argument(
         Constant(NumberToken)
       )
-    )
+    ),
+    CloseParen
   )
 )
 
@@ -28,7 +29,8 @@ Program(
       Argument(
         Constant(BoolToken)
       )
-    )
+    ),
+    CloseParen
   )
 )
 
@@ -45,7 +47,8 @@ Program(
       Argument(
         Constant(ErrorToken)
       )
-    )
+    ),
+    CloseParen
   )
 )
 
@@ -65,7 +68,8 @@ Program(
       Argument(
         Constant(NumberToken)
       )
-    )
+    ),
+    CloseParen
   )
 )
 
@@ -82,7 +86,8 @@ Program(
       Argument,
       Argument,
       Argument
-    )
+    ),
+    CloseParen
   )
 )
 
@@ -111,14 +116,16 @@ Program(
               Argument(
                 Constant(NumberToken)
               )
-            )
+            ),
+            CloseParen
           )
         )
       ),
       Argument(
         Constant(NumberToken)
       )
-    )
+    ),
+    CloseParen
   )
 )
 
@@ -147,10 +154,12 @@ Program(
 
 Program(
   FunctionCall(
+    OpenParen,
     FunctionCall(
       Constant(NumberToken),
       Constant(NumberToken)
-    )
+    ),
+    CloseParen
   )
 )
 
@@ -277,10 +286,12 @@ Program(
 Program(
   FunctionCall(
     Constant(NumberToken),
+    OpenParen,
     FunctionCall(
       Constant(NumberToken),
       Constant(NumberToken)
-    )
+    ),
+    CloseParen
   )
 )
 
@@ -312,7 +323,8 @@ Program(
           )
         )
       )
-    )
+    ),
+    CloseParen
   )
 )
 
@@ -329,21 +341,26 @@ Program(
       Argument(
         Reference(
           ReferenceFunctionCall(
+            OpenParen,
             Reference(
               ReferenceFunctionCall(
                 Reference(ReferenceItem(NameToken)),
                 Reference(ReferenceItem(NameToken))
               )
             ),
+            CloseParen,
+            OpenParen,
             Reference(
               ReferenceFunctionCall(
                 Reference(ReferenceItem(NameToken)),
                 Reference(ReferenceItem(NameToken))
               )
-            )
+            ),
+            CloseParen
           )
         )
       )
-    )
+    ),
+    CloseParen
   )
 )

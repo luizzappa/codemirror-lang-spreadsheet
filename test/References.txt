@@ -68,6 +68,20 @@ Program(
   )
 )
 
+# Reference named ref with boolean
+
+my_TRUE_FALSE_range
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      NameToken
+    )
+  )
+)
+
 # Reference vertical range
 
 A:A
@@ -196,6 +210,7 @@ Program(
 ===>
 
 Program(
+  OpenParen,
   Reference(
     ReferenceFunctionCall(
       Reference(
@@ -209,7 +224,8 @@ Program(
         )
       )
     )
-  )
+  ),
+  CloseParen
 )
 
 # Reference hash
@@ -239,6 +255,7 @@ Program(
 Program(
   Reference(
     ReferenceFunctionCall(
+      OpenParen,
       Union(
         Reference(
           ReferenceItem(
@@ -255,8 +272,9 @@ Program(
             CellToken
           )
         )
-      )
-    )      
+      ),
+      CloseParen
+    )
   )
 )
 
@@ -269,6 +287,7 @@ Program(
 Program(
   Reference(
     ReferenceFunctionCall(
+      OpenParen,
       Union(
         Reference(
           ReferenceItem(
@@ -277,6 +296,7 @@ Program(
         ),
         Reference(
           ReferenceFunctionCall(
+            OpenParen,
             Union(
               Reference(
                 ReferenceItem(
@@ -288,10 +308,12 @@ Program(
                   CellToken
                 )
               )
-            )
+            ),
+            CloseParen
           )
         )
-      )
+      ),
+      CloseParen
     )      
   )
 )
