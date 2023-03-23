@@ -88,6 +88,10 @@ Union { Reference (!union comma Reference)+ }
 
 @external tokens isIntersecop from "./tokens" { intersecop }
 
+@external specialize { NameToken } isBoolean from "./tokens" {
+  BoolToken
+}
+
 @precedence {
   paren @left,
   range @left,
@@ -114,7 +118,6 @@ Union { Reference (!union comma Reference)+ }
     Function,
     VerticalRangeToken,
     CellToken,
-    BoolToken,
     NameToken,
     at,
     plusop,
@@ -152,7 +155,6 @@ Union { Reference (!union comma Reference)+ }
   lteop { "<=" }
 
   // Literals
-  BoolToken { "TRUE" | "FALSE" } // i18n
   NumberToken { 
    @digit+ (decimalSeparator @digit*)? 
    | decimalSeparator @digit+

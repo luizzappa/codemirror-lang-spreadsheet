@@ -9,6 +9,8 @@ import {
 } from '@codemirror/language';
 import { styleTags, tags as t } from '@lezer/highlight';
 
+export { setIdiom } from './tokens'
+
 export const spreadsheetLanguage = LRLanguage.define({
   parser: parser.configure({
     props: [
@@ -37,9 +39,6 @@ export const spreadsheetLanguage = LRLanguage.define({
       })
     ]
   })
-  // languageData: {
-  //   commentTokens: { line: ';' }
-  // }
 });
 
 export function spreadsheet() {

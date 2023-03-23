@@ -5,6 +5,20 @@ import { ExternalTokenizer, InputStream, Stack } from '@lezer/lr';
 // @ts-ignore
 import * as tokens from './parser.terms.js';
 
+type supportedIdioms = "en-US" | "pt-BR";
+let currIdiom: supportedIdioms = "en-US";
+// Always uppercase
+const i18n: {
+  [key: string]: {
+    [key in supportedIdioms]: string[]
+  }
+} = {
+  "BoolToken": {
+    "en-US": ["TRUE", "FALSE"],
+    "pt-BR": ["VERDADEIRO", "FALSO"]
+  }
+}
+
 const openParen = 40,
   closeParen = 41,
   backSlash = 92,
@@ -60,3 +74,11 @@ export const isIntersecop = new ExternalTokenizer(
   },
   { contextual: true }
 );
+
+export const isBoolean = (value: string, stack: Stack): number => {
+  return i18n.BoolToken[currIdiom].indexOf(value.toUpperCase()) !== -1
+    ? tokens['BoolToken'] 
+    : -1;
+};
+
+export const setIdiom = (newIdiom: supportedIdioms): supportedIdioms => currIdiom = newIdiom;
