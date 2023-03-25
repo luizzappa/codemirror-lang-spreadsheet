@@ -23,8 +23,26 @@ const i18n: {
     'pt-BR': '#REF!'
   },
   ErrorToken: {
-    'en-US': ["#NULL!", "#DIV/0!", "#VALUE!", "#NAME?", "#NUM!", "#N/A", "#GETTING_DATA", "#SPILL!"],
-    'pt-BR': ["#NULO!", "#DIV/0!", "#VALOR!", "#NOME?", "#NÚM!", "#N/D", "#OBTENDO_DADOS", "#DESPEJAR!"]
+    'en-US': [
+      '#NULL!',
+      '#DIV/0!',
+      '#VALUE!',
+      '#NAME?',
+      '#NUM!',
+      '#N/A',
+      '#GETTING_DATA',
+      '#SPILL!'
+    ],
+    'pt-BR': [
+      '#NULO!',
+      '#DIV/0!',
+      '#VALOR!',
+      '#NOME?',
+      '#NÚM!',
+      '#N/D',
+      '#OBTENDO_DADOS',
+      '#DESPEJAR!'
+    ]
   }
 };
 
@@ -93,8 +111,7 @@ export const isBoolean = (value: string, stack: Stack): number => {
 export const isRefErrorToken = (value: string, stack: Stack): number => {
   if (i18n.RefErrorToken[currIdiom].indexOf(value.toUpperCase()) !== -1) {
     return tokens['RefErrorToken'];
-  }
-  else if (i18n.ErrorToken[currIdiom].indexOf(value.toUpperCase()) !== -1) {
+  } else if (i18n.ErrorToken[currIdiom].indexOf(value.toUpperCase()) !== -1) {
     return tokens['ErrorToken'];
   }
   return -1;
