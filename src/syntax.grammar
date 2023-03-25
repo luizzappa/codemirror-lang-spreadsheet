@@ -92,6 +92,13 @@ Union { Reference (!union comma Reference)+ }
   BoolToken
 }
 
+// RefErrorToken { "#REF!" } // i18n
+// ErrorToken { "#NULL!" | "#DIV/0!" | "#VALUE!" | "#NAME?" | "#NUM!" | "#N/A" | "#GETTING_DATA" | "#SPILL!" } // i18n
+@external specialize { refHashtag } isRefErrorToken from "./tokens" {
+  RefErrorToken,
+  ErrorToken
+}
+
 @precedence {
   paren @left,
   range @left,
@@ -119,6 +126,8 @@ Union { Reference (!union comma Reference)+ }
     VerticalRangeToken,
     CellToken,
     NameToken,
+    refHashtag,
+    hash,
     at,
     plusop,
     space
@@ -160,8 +169,7 @@ Union { Reference (!union comma Reference)+ }
    | decimalSeparator @digit+
   }
   TextToken { "\"" ( "\"\"" | !["])* "\"" }
-  ErrorToken { "#NULL!" | "#DIV/0!" | "#VALUE!" | "#NAME?" | "#NUM!" | "#N/A" | "#GETTING_DATA" | "#SPILL!" } // i18n
-  RefErrorToken { "#REF!" } // i18n
+  refHashtag { hash $[A-Z]+ $[A-Z0-9!/_?Ú]* }
 
   Function[closedBy=CloseParen] { $[a-zA-Z_]+ $[a-zA-Z_0-9.]* OpenParen }
 
