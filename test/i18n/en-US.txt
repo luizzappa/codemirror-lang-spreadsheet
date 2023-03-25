@@ -17,3 +17,95 @@ FALSE
 Program(
   Constant(BoolToken)
 )
+
+# RefErrorToken
+
+#REF!
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(RefErrorToken)
+  )
+)
+
+# ErrorToken #NULL!
+
+#NULL!
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #DIV/0!
+
+#DIV/0!
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #VALUE!
+
+#VALUE!
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #NAME?
+
+#NAME?
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #NUM!
+
+#NUM!
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #N/A
+
+#N/A
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #GETTING_DATA
+
+#GETTING_DATA
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)
+
+# ErrorToken #SPILL!
+
+#SPILL!
+
+===>
+
+Program(
+  Constant(ErrorToken)
+)

@@ -68,9 +68,23 @@ Program(
   )
 )
 
-# Reference named ref with boolean
+# Reference named ref with boolean (underline)
 
 my_TRUE_FALSE_range
+
+===>
+
+Program(
+  Reference(
+    ReferenceItem(
+      NameToken
+    )
+  )
+)
+
+# Reference named ref with boolean
+
+myTRUErange
 
 ===>
 
