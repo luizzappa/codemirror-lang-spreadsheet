@@ -1,0 +1,19 @@
+# BoolToken VERDADEIRO
+
+VERDADEIRO
+
+===>
+
+Program(
+  Constant(BoolToken)
+)
+
+# BoolToken FALSO
+
+FALSO
+
+===>
+
+Program(
+  Constant(BoolToken)
+)

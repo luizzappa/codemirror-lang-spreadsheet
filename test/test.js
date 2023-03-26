@@ -20,16 +20,17 @@ for (let file of fs.readdirSync(caseDir)) {
   })
 }
 
-for (let file of fs.readdirSync(i18nDir)) {
-  if (!isTxtFile(file)) continue;
+for (let idiom of fs.readdirSync(i18nDir)) {
+  for (let file of fs.readdirSync(path.join(i18nDir, idiom))) { 
+    if (!isTxtFile(file)) continue;
 
-  const idiom = getFileName(file),
-    name = `i18n: ${idiom}`;
-  describe(name, () => {
-    for (let {name, run} of fileTests(fs.readFileSync(path.join(i18nDir, file), "utf8"), file))
-      it(name, () => {
-        setLezerIdiom(idiom);
-        return run(spreadsheetLanguage.parser);
-      })
-  })
+    const name = `i18n ${idiom} [${getFileName(file)}]`;
+    describe(name, () => {
+      for (let {name, run} of fileTests(fs.readFileSync(path.join(i18nDir, idiom, file), "utf8"), file))
+        it(name, () => {
+          setLezerIdiom(idiom);
+          return run(spreadsheetLanguage.parser);
+        })
+    })
+  }
 }

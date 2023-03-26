@@ -1,0 +1,73 @@
+# Function separator
+
+IF(;;)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument,
+      Argument,
+      Argument
+    ),
+    CloseParen
+  )
+)
+
+# Union separator 
+
+(A1; A2; A3)
+
+===>
+
+Program(
+  Reference(
+    ReferenceFunctionCall(
+      OpenParen,
+      Union(
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        )
+      ),
+      CloseParen
+    )
+  )
+)
+
+# ConstantArray arrayRowSeparator 
+
+{"A" \ "A"\1 \"B"\"B" \1\1\2}
+
+===>
+
+Program(
+  ConstantArray(
+    ArrayColumns(
+      ArrayRows(
+        ArrayConstant(Constant(TextToken)),
+        ArrayConstant(Constant(TextToken)),
+        ArrayConstant(Constant(NumberToken)),
+        ArrayConstant(Constant(TextToken)),
+        ArrayConstant(Constant(TextToken)),
+        ArrayConstant(Constant(NumberToken)),
+        ArrayConstant(Constant(NumberToken)),
+        ArrayConstant(Constant(NumberToken))
+      )
+    )
+  )
+)
+
