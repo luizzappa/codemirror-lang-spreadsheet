@@ -164,8 +164,10 @@ const spreadsheetLanguage = LRLanguage.define({
         ]
     })
 });
-function spreadsheet() {
+const changeIdiom = setLezerIdiom;
+function spreadsheet(idiom = "en-US") {
+    setLezerIdiom(idiom);
     return new LanguageSupport(spreadsheetLanguage);
 }
 
-export { setLezerIdiom, spreadsheet, spreadsheetLanguage };
+export { changeIdiom, spreadsheet, spreadsheetLanguage };
