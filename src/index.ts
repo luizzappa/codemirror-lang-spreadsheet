@@ -49,10 +49,14 @@ export const spreadsheetLanguage = LRLanguage.define({
 export const changeIdiom = setLezerIdiom,
   changeDecimalSeparator = setDecimalSeparator;
 
-export function spreadsheet(
-  idiom: TsupportedIdioms = 'en-US',
-  decimalSeparator: TdecimalSeparator = '.'
-) {
+type Toptions = {
+  idiom?: TsupportedIdioms;
+  decimalSeparator?: TdecimalSeparator;
+};
+export function spreadsheet({
+  idiom = 'en-US',
+  decimalSeparator = '.'
+}: Toptions = {}) {
   setLezerIdiom(idiom);
   setDecimalSeparator(decimalSeparator);
   return new LanguageSupport(spreadsheetLanguage);
