@@ -1,6 +1,7 @@
 import { LRLanguage, LanguageSupport } from '@codemirror/language';
-type supportedIdioms = "en-US" | "pt-BR";
+type TdecimalSeparator = "." | ",";
+type TsupportedIdioms = "en-US" | "pt-BR";
 declare const spreadsheetLanguage: LRLanguage;
-declare const changeIdiom: (newIdiom: supportedIdioms) => supportedIdioms;
-declare function spreadsheet(idiom?: supportedIdioms): LanguageSupport;
-export { spreadsheetLanguage, changeIdiom, spreadsheet };
+declare const changeIdiom: (newIdiom: TsupportedIdioms) => TsupportedIdioms, changeDecimalSeparator: (newDecimalSeparator: TdecimalSeparator) => TdecimalSeparator;
+declare function spreadsheet(idiom?: TsupportedIdioms, decimalSeparator?: TdecimalSeparator): LanguageSupport;
+export { spreadsheetLanguage, changeIdiom, changeDecimalSeparator, spreadsheet };
