@@ -5,13 +5,37 @@ import { ExternalTokenizer, InputStream, Stack } from '@lezer/lr';
 // @ts-ignore
 import * as tokens from './parser.terms.js';
 
+const backSlash = 92,
+  comma = 44,
+  closeParen = 41,
+  dot = 46,
+  euroSign = 8364,
+  openParen = 40,
+  questionMark = 63,
+  semiColon = 59,
+  underscore = 95,
+  isAsciiLeter = (charCode: number): boolean => {
+    return (
+      (charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)
+    );
+  },
+  isDigit = (charCode: number): boolean => charCode >= 48 && charCode <= 57,
+  isSpace = (charCode: number): boolean => {
+    return (
+      [
+        9, 10, 11, 12, 13, 32, 133, 160, 5760, 8192, 8193, 8194, 8195, 8196,
+        8197, 8198, 8199, 8200, 8201, 8202, 8232, 8233, 8239, 8287, 12288
+      ].indexOf(charCode) !== -1
+    );
+  };
+
 type supportedIdioms = 'en-US' | 'pt-BR';
 let currIdiom: supportedIdioms = 'en-US';
 // Always uppercase
 // Source: https://en.excel-translator.de/
 const i18n: {
   [key: string]: {
-    [key in supportedIdioms]: string[] | string;
+    [key in supportedIdioms]: string[] | string | number;
   };
 } = {
   BoolToken: {
@@ -43,30 +67,16 @@ const i18n: {
       '#OBTENDO_DADOS',
       '#DESPEJAR!'
     ]
+  },
+  separator: {
+    'en-US': comma,
+    'pt-BR': semiColon
+  },
+  arrayRowSeparator: {
+    'en-US': ',',
+    'pt-BR': '\\'
   }
 };
-
-const backSlash = 92,
-  closeParen = 41,
-  dot = 46,
-  euroSign = 8364,
-  openParen = 40,
-  questionMark = 63,
-  underscore = 95,
-  isAsciiLeter = (charCode: number): boolean => {
-    return (
-      (charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)
-    );
-  },
-  isDigit = (charCode: number): boolean => charCode >= 48 && charCode <= 57,
-  isSpace = (charCode: number): boolean => {
-    return (
-      [
-        9, 10, 11, 12, 13, 32, 133, 160, 5760, 8192, 8193, 8194, 8195, 8196,
-        8197, 8198, 8199, 8200, 8201, 8202, 8232, 8233, 8239, 8287, 12288
-      ].indexOf(charCode) !== -1
-    );
-  };
 
 export const isIntersecop = new ExternalTokenizer(
   (input: InputStream, stack: Stack) => {
@@ -102,16 +112,38 @@ export const isIntersecop = new ExternalTokenizer(
   { contextual: true }
 );
 
-export const isBoolean = (value: string, stack: Stack): number => {
-  return i18n.BoolToken[currIdiom].indexOf(value.toUpperCase()) !== -1
-    ? tokens['BoolToken']
+export const separator = new ExternalTokenizer(
+  (input: InputStream, stack: Stack) => {
+    const { next } = input;
+    if (i18n.separator[currIdiom] === next)
+      return input.acceptToken(tokens.separator, 1);
+  }
+);
+
+export const isArrayRowSeparator = (value: string, stack: Stack): number => {
+  return value === i18n.arrayRowSeparator[currIdiom]
+    ? tokens['arrayRowSeparator']
     : -1;
 };
 
+export const desambiguateNameToken = (value: string, stack: Stack): number => {
+  if (
+    (i18n.BoolToken[currIdiom] as string[]).indexOf(value.toUpperCase()) !== -1
+  ) {
+    return tokens['BoolToken'];
+  }
+  return -1;
+};
+
 export const isRefErrorToken = (value: string, stack: Stack): number => {
-  if (i18n.RefErrorToken[currIdiom].indexOf(value.toUpperCase()) !== -1) {
+  if (
+    (i18n.RefErrorToken[currIdiom] as string[]).indexOf(value.toUpperCase()) !==
+    -1
+  ) {
     return tokens['RefErrorToken'];
-  } else if (i18n.ErrorToken[currIdiom].indexOf(value.toUpperCase()) !== -1) {
+  } else if (
+    (i18n.ErrorToken[currIdiom] as string[]).indexOf(value.toUpperCase()) !== -1
+  ) {
     return tokens['ErrorToken'];
   }
   return -1;

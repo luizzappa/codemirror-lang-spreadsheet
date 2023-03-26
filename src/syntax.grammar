@@ -18,10 +18,16 @@ Constant { NumberToken | TextToken | BoolToken | ErrorToken }
 
 // Arrays
 ConstantArray { openCurlyParen ArrayColumns closeCurlyParen }
-ArrayColumns { ArrayRows (semicolon ArrayRows)* }
-ArrayRows { ArrayConstant (comma ArrayConstant)* }
+ArrayColumns { ArrayRows (arrayColumnSeparator ArrayRows)* }
+ArrayRows { ArrayConstant (arrayRowSeparator ArrayConstant)* }
 ArrayConstant { Constant | arrayPrefixOp NumberToken | RefErrorToken }
 arrayPrefixOp { plusop | minop | at }
+
+arrayColumnSeparator { semicolon }
+// Depending on the idiom, the separator of an array row changes
+@external specialize { arrayRowSeparatorToken } isArrayRowSeparator from "./tokens" {
+  arrayRowSeparator
+}
 
 // Functions
 FunctionCall {
@@ -45,7 +51,7 @@ formulaInfixOp {
   | formula !comparsion lteop formula
 }
 
-Arguments { Argument (comma Argument)* }
+Arguments { Argument (separator Argument)* }
 Argument { formula | "" }
 
 // References
@@ -84,19 +90,22 @@ ReferenceFunctionCall {
 
 }
 
-Union { Reference (!union comma Reference)+ }
+Union { Reference (!union separator Reference)+ }
 
 @external tokens isIntersecop from "./tokens" { intersecop }
 
-@external specialize { NameToken } isBoolean from "./tokens" {
-  BoolToken
-}
+// Depending on the idiom, the separator changes
+@external tokens separator from "./tokens" { separator }
 
-// RefErrorToken { "#REF!" } // i18n
-// ErrorToken { "#NULL!" | "#DIV/0!" | "#VALUE!" | "#NAME?" | "#NUM!" | "#N/A" | "#GETTING_DATA" | "#SPILL!" } // i18n
+// Depending on the idiom, errors change
 @external specialize { refHashtag } isRefErrorToken from "./tokens" {
   RefErrorToken,
   ErrorToken
+}
+
+// Depending on the idiom, boolean changes
+@external specialize { NameToken } desambiguateNameToken from "./tokens" {
+  BoolToken
 }
 
 @precedence {
@@ -125,6 +134,7 @@ Union { Reference (!union comma Reference)+ }
     Function,
     VerticalRangeToken,
     CellToken,
+    arrayRowSeparatorToken,
     NameToken,
     refHashtag,
     hash,
@@ -137,6 +147,7 @@ Union { Reference (!union comma Reference)+ }
 
   // Symbols
   at { "@" }
+  arrayRowSeparatorToken { "\\" | comma }
   comma { "," }
   colon { ":" }
   hash { "#" }
