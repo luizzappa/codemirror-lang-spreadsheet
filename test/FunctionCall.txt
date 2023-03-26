@@ -9,7 +9,7 @@ Program(
     Function,
     Arguments(
       Argument(
-        Constant(NumberToken)
+        Constant(Number)
       )
     ),
     CloseParen
@@ -66,7 +66,7 @@ Program(
         Constant(TextToken)
       ),
       Argument(
-        Constant(NumberToken)
+        Constant(Number)
       )
     ),
     CloseParen
@@ -102,19 +102,19 @@ Program(
     Function,
     Arguments(
       Argument(
-        Constant(NumberToken)
+        Constant(Number)
       ),
       Argument(
         FunctionCall(
-          Constant(NumberToken),
+          Constant(Number),
           FunctionCall(
             Function,
             Arguments(
               Argument(
-                Constant(NumberToken)
+                Constant(Number)
               ),
               Argument(
-                Constant(NumberToken)
+                Constant(Number)
               )
             ),
             CloseParen
@@ -122,7 +122,7 @@ Program(
         )
       ),
       Argument(
-        Constant(NumberToken)
+        Constant(Number)
       )
     ),
     CloseParen
@@ -156,8 +156,8 @@ Program(
   FunctionCall(
     OpenParen,
     FunctionCall(
-      Constant(NumberToken),
-      Constant(NumberToken)
+      Constant(Number),
+      Constant(Number)
     ),
     CloseParen
   )
@@ -172,8 +172,8 @@ Program(
 
 Program(
   FunctionCall(
-    Constant(NumberToken),
-    Constant(NumberToken)
+    Constant(Number),
+    Constant(Number)
   )
 )
 
@@ -185,8 +185,8 @@ Program(
 
 Program(
   FunctionCall(
-    Constant(NumberToken),
-    Constant(NumberToken)
+    Constant(Number),
+    Constant(Number)
   )
 )
 
@@ -198,9 +198,9 @@ Program(
 
 Program(
   FunctionCall(
-    Constant(NumberToken),
+    Constant(Number),
     FunctionCall(
-      Constant(NumberToken)
+      Constant(Number)
     )
   )
 )
@@ -213,8 +213,8 @@ Program(
 
 Program(
   FunctionCall(
-    Constant(NumberToken),
-    Constant(NumberToken)
+    Constant(Number),
+    Constant(Number)
   )
 )
 
@@ -226,8 +226,8 @@ Program(
 
 Program(
   FunctionCall(
-    Constant(NumberToken),
-    Constant(NumberToken)
+    Constant(Number),
+    Constant(Number)
   )
 )
 
@@ -239,8 +239,8 @@ Program(
 
 Program(
   FunctionCall(
-    Constant(NumberToken),
-    Constant(NumberToken)
+    Constant(Number),
+    Constant(Number)
   )
 )
 
@@ -254,26 +254,26 @@ Program(
   FunctionCall(
     FunctionCall(
       FunctionCall(
-        Constant(NumberToken),
+        Constant(Number),
         FunctionCall(
           FunctionCall(
-            Constant(NumberToken),
+            Constant(Number),
             FunctionCall(
-              Constant(NumberToken)
+              Constant(Number)
             )
           ),
-          Constant(NumberToken)
+          Constant(Number)
         )
       ),
       FunctionCall(
-        Constant(NumberToken),
+        Constant(Number),
         FunctionCall(
-          Constant(NumberToken),
-          Constant(NumberToken)
+          Constant(Number),
+          Constant(Number)
         )
       )
     ),
-    Constant(NumberToken)
+    Constant(Number)
   )
 )
 
@@ -285,11 +285,11 @@ Program(
 
 Program(
   FunctionCall(
-    Constant(NumberToken),
+    Constant(Number),
     OpenParen,
     FunctionCall(
-      Constant(NumberToken),
-      Constant(NumberToken)
+      Constant(Number),
+      Constant(Number)
     ),
     CloseParen
   )

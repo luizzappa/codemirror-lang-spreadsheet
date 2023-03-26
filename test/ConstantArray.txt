@@ -8,7 +8,7 @@ Program(
   ConstantArray(
     ArrayColumns(
       ArrayRows(
-        ArrayConstant(Constant(NumberToken))
+        ArrayConstant(Constant(Number))
       )
     )
   )
@@ -24,7 +24,7 @@ Program(
   ConstantArray(
     ArrayColumns(
       ArrayRows(
-        ArrayConstant(NumberToken)
+        ArrayConstant(Number)
       )
     )
   )
@@ -40,11 +40,11 @@ Program(
   ConstantArray(
     ArrayColumns(
       ArrayRows(
-        ArrayConstant(Constant(NumberToken)),
+        ArrayConstant(Constant(Number)),
         ArrayConstant(Constant(TextToken)),
-        ArrayConstant(NumberToken),
-        ArrayConstant(NumberToken),
-        ArrayConstant(NumberToken),
+        ArrayConstant(Number),
+        ArrayConstant(Number),
+        ArrayConstant(Number),
         ArrayConstant(Constant(BoolToken))
       )
     )
@@ -65,7 +65,7 @@ Program(
   ConstantArray(
     ArrayColumns(
       ArrayRows(
-        ArrayConstant(NumberToken),
+        ArrayConstant(Number),
         ArrayConstant(Constant(TextToken))
       ),
       ArrayRows(
@@ -74,7 +74,7 @@ Program(
       ),
       ArrayRows(
         ArrayConstant(Constant(BoolToken)),
-        ArrayConstant(NumberToken)
+        ArrayConstant(Number)
       )
     )
   )

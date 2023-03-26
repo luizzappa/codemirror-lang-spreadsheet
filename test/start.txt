@@ -4,7 +4,7 @@
 
 ==>
 
-Program(Constant(NumberToken))
+Program(Constant(Number))
 
 # Formula without equal
 
@@ -12,7 +12,7 @@ Program(Constant(NumberToken))
 
 ==>
 
-Program(Constant(NumberToken))
+Program(Constant(Number))
 
 # Formula with space
 
@@ -20,7 +20,7 @@ Program(Constant(NumberToken))
 
 ==>
 
-Program(Constant(NumberToken))
+Program(Constant(Number))
 
 # Formula with Array
 
@@ -28,4 +28,4 @@ Program(Constant(NumberToken))
 
 ==>
 
-Program(Constant(NumberToken))
+Program(Constant(Number))

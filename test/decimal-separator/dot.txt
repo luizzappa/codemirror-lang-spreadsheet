@@ -1,0 +1,138 @@
+# Decimal
+
+123.2134
+
+===>
+
+Program(
+  Constant(Number)
+)
+
+# Function separator (no arguments)
+
+IF(,,)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument,
+      Argument,
+      Argument
+    ),
+    CloseParen
+  )
+)
+
+# Function separator (with one argument)
+
+SUM(123.41)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Constant(Number)
+      )
+    ),
+    CloseParen
+  )
+)
+
+# Function separator (with two number arguments)
+
+SUM(111,111)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Constant(Number)
+      ),
+      Argument(
+        Constant(Number)
+      )
+    ),
+    CloseParen
+  )
+)
+
+# Function separator (with three arguments)
+
+IF(A1,A4,"abcd")
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(Reference(ReferenceItem(CellToken))),
+      Argument(Reference(ReferenceItem(CellToken))),
+      Argument(Constant(TextToken))),
+    CloseParen
+  )
+)
+
+# Union separator 
+
+(A1, A2, A3)
+
+===>
+
+Program(
+  Reference(
+    ReferenceFunctionCall(
+      OpenParen,
+      Union(
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        )
+      ),
+      CloseParen
+    )
+  )
+)
+
+# ConstantArray arrayRowSeparator 
+
+{"A" , "A",1 ,"B","B" ,1,1,2}
+
+===>
+
+Program(
+  ConstantArray(
+    ArrayColumns(
+      ArrayRows(
+        ArrayConstant(Constant(TextToken)),
+        ArrayConstant(Constant(TextToken)),
+        ArrayConstant(Constant(Number)),
+        ArrayConstant(Constant(TextToken)),
+        ArrayConstant(Constant(TextToken)),
+        ArrayConstant(Constant(Number)),
+        ArrayConstant(Constant(Number)),
+        ArrayConstant(Constant(Number))
+      )
+    )
+  )
+)

@@ -1,14 +1,14 @@
-# NumberToken without prefix operator
+# Number without prefix operator
 
 20
 
 ===>
 
 Program(
-  Constant(NumberToken)
+  Constant(Number)
 )
 
-# NumberToken with plus prefix operator
+# Number with plus prefix operator
 
 +20
 
@@ -16,11 +16,11 @@ Program(
 
 Program(
   FunctionCall(
-    Constant(NumberToken)
+    Constant(Number)
   )
 )
 
-# NumberToken with minus prefix operator
+# Number with minus prefix operator
 
 -20
 
@@ -28,11 +28,11 @@ Program(
 
 Program(
   FunctionCall(
-    Constant(NumberToken)
+    Constant(Number)
   )
 )
 
-# NumberToken with at prefix operator
+# Number with at prefix operator
 
 @20
 
@@ -40,7 +40,7 @@ Program(
 
 Program(
   FunctionCall(
-    Constant(NumberToken)
+    Constant(Number)
   )
 )
 
@@ -201,7 +201,7 @@ Program(
 ===>
 
 Program(
- Constant(NumberToken)
+ Constant(Number)
 )
 
 # Decimal number without integer part
@@ -211,5 +211,5 @@ Program(
 ===>
 
 Program(
- Constant(NumberToken)
+ Constant(Number)
 )
