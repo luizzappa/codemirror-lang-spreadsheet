@@ -151,7 +151,7 @@ export const desambiguateNameToken = (value: string, stack: Stack): number => {
   return -1;
 };
 
-export const isRefErrorToken = (value: string, stack: Stack): number => {
+export const isErrors = (value: string, stack: Stack): number => {
   if (
     (i18n.RefErrorToken[currIdiom] as string[]).indexOf(value.toUpperCase()) !==
     -1

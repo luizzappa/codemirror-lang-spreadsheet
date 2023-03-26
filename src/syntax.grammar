@@ -98,7 +98,7 @@ Union { Reference (!union separator Reference)+ }
 @external tokens separator from "./tokens" { separator }
 
 // Depending on the idiom, errors change
-@external specialize { refHashtag } isRefErrorToken from "./tokens" {
+@external specialize { refHashtag } isErrors from "./tokens" {
   RefErrorToken,
   ErrorToken
 }
