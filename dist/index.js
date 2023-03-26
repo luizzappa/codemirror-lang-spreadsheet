@@ -21,7 +21,7 @@ const backSlash = 92, comma = 44, closeParen = 41, dot = 46, euroSign = 8364, op
         8197, 8198, 8199, 8200, 8201, 8202, 8232, 8233, 8239, 8287, 12288
     ].indexOf(charCode) !== -1);
 };
-let currDecimalSeparator = ".";
+let currDecimalSeparator = '.';
 let currIdiom = 'en-US';
 // Always uppercase
 // Source: https://en.excel-translator.de/
@@ -82,8 +82,8 @@ const isIntersecop = new ExternalTokenizer((input, stack) => {
 }, { contextual: true });
 const decimalSeparator = new ExternalTokenizer((input, stack) => {
     const { next } = input, charCodeDecimalSeparator = {
-        ".": dot,
-        ",": comma
+        '.': dot,
+        ',': comma
     }[currDecimalSeparator];
     if (next === charCodeDecimalSeparator)
         return input.acceptToken(decimalSeparator$1, 1);
@@ -92,8 +92,9 @@ const separator = new ExternalTokenizer((input, stack) => {
     const { next } = input, 
     // Depending on the decimal separator, the separator changes
     currSeparator = {
-        ".": comma,
-        ",": semiColon
+        // Key is the decimal separator and Value is the separator
+        '.': comma,
+        ',': semiColon
     }[currDecimalSeparator];
     if (next === currSeparator)
         return input.acceptToken(separator$1, 1);
@@ -101,12 +102,11 @@ const separator = new ExternalTokenizer((input, stack) => {
 const isArrayRowSeparator = (value, stack) => {
     // Depending on the decimal separator, the row separator of the array changes
     const currArrayRowSeparator = {
-        ".": ",",
-        ",": "\\"
+        // Key is the decimal separator and Value is the array row separator
+        '.': ',',
+        ',': '\\'
     }[currDecimalSeparator];
-    return value === currArrayRowSeparator
-        ? arrayRowSeparator
-        : -1;
+    return value === currArrayRowSeparator ? arrayRowSeparator : -1;
 };
 const desambiguateNameToken = (value, stack) => {
     if (i18n.BoolToken[currIdiom].indexOf(value.toUpperCase()) !== -1) {
@@ -114,7 +114,7 @@ const desambiguateNameToken = (value, stack) => {
     }
     return -1;
 };
-const isRefErrorToken = (value, stack) => {
+const isErrors = (value, stack) => {
     if (i18n.RefErrorToken[currIdiom].indexOf(value.toUpperCase()) !==
         -1) {
         return RefErrorToken;
@@ -144,7 +144,7 @@ const parser = LRParser.deserialize({
   tokenData: "#*i~RyOX#rXY/XYZ/XZ]#r]^/X^p#rpq1Xqr#rrs2fstHetuK_uv!6[vw!7Swx!7zxy!8Syz!8zz{!9r{|!9w|}!;h}!O!<`!O!P#r!P!Q!=W!Q![!=]![!]!>|!]!^!?R!^!_!?y!_!`!Bg!`!a!C_!b!c!ET!c!}!Ft#O#P#'b#Q#R#(R#R#S!Iu#S#T#r#T#o!Ft#o#p#(y#p#q#r#q#r#)q#r;'S#r;'S;=`/R<%lO#r~#uhOp#rpq%aqr(krs#rst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![#r![!]*[!]!a%a!b!}#r#Q#R%a#R#o#r#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#rQ%dZOw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aQ&YQqr&`wx%aQ&eOaQQ&hYOw'Wwx(_xz'W{!P'W!Q!['W!]!a'W!b!}'W#Q;'S'W;'S;=`(X<%lO'WQ'ZYOw'Wwx'yxz'W{!P'W!Q!['W!]!a'W!b!}'W#Q;'S'W;'S;=`(X<%lO'WQ'|Qqr(Swx'WQ(XOcQQ([P;=`<%l'WQ(bPwx'WQ(hP;=`<%l%a~(ph_~Op#rpq%aqr(krs#rst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![#r![!]*[!]!a%a!b!}#r#Q#R%a#R#o#r#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~*_fOp+spq'Wqs+sst'Wtu+suw'Wwx(_xz'W{|+s|!O'W!O!P+s!Q![+s!]!a'W!b!}+s#Q#R'W#R#o+s#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~+vgOp+spq'Wqr-_rs+sst'Wtu+suw'Wwx'yxz'W{|+s|!O'W!O!P+s!Q![+s!]!a'W!b!}+s#Q#R'W#R#o+s#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~-dgb~Op+spq'Wqr-_rs+sst'Wtu+suw'Wwx'yxz'W{|+s|!O'W!O!P+s!Q![+s!]!a'W!b!}+s#Q#R'W#R#o+s#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~/OP;=`<%l+s~/UP;=`<%l#r~/^mz~OX#rXY/XYZ/XZ]#r]^/X^p#rpq1Xqr(krs#rst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![#r![!]*[!]!a%a!b!}#r#Q#R%a#R#o#r#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~1^bz~OX%aXY1XYZ1XZ]%a]^1X^p%apq1Xqw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%a~2ilOp2fpq4aqr=[rs?Xst4atu2fuw4awx6gxz4az{7S{|2f|!O4a!O!P2f!P!Q7S!Q![2f![!]@x!]!a4a!a!b7S!b!}2f!}#Q7S#Q#R4a#R#o2f#o#p4a#p#q2f#q#r4a#r;'S2f;'S;=`H_<%lO2f~4daOr4ars5isw4awx6gxz4az{7S{!P4a!P!Q7S!Q![4a![!]8Y!]!a4a!a!b7S!b!}4a!}#Q7S#Q;'S4a;'S;=`=U<%lO4a~5n]f~Or%ars4asw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%a~6jWOq7Sqr7trs7fsw7Swx4ax;'S7S;'S;=`7n<%lO7S~7VTOr7Srs7fs;'S7S;'S;=`7n<%lO7S~7kPf~rs7S~7qP;=`<%l7S~7yTaQOr7Srs7fs;'S7S;'S;=`7n<%lO7S~8]aOr9brs:jsw9bwx<lxz9bz{7S{!P9b!P!Q7S!Q![9b![!]7S!]!a9b!a!b7S!b!}9b!}#Q7S#Q;'S9b;'S;=`<f<%lO9b~9eaOr9brs:jsw9bwx;exz9bz{7S{!P9b!P!Q7S!Q![9b![!]7S!]!a9b!a!b7S!b!}9b!}#Q7S#Q;'S9b;'S;=`<f<%lO9b~:o[f~Or'Wrs9bsw'Wwx'yxz'W{!P'W!Q!['W!]!a'W!b!}'W#Q;'S'W;'S;=`(X<%lO'W~;hWOq7Sqr<Qrs7fsw7Swx9bx;'S7S;'S;=`7n<%lO7S~<VTcQOr7Srs7fs;'S7S;'S;=`7n<%lO7S~<iP;=`<%l9b~<oVOr7Srs7fsw7Swx9bx;'S7S;'S;=`7n<%lO7S~=XP;=`<%l4a~=al_~Op2fpq4aqr=[rs?Xst4atu2fuw4awx6gxz4az{7S{|2f|!O4a!O!P2f!P!Q7S!Q![2f![!]@x!]!a4a!a!b7S!b!}2f!}#Q7S#Q#R4a#R#o2f#o#p4a#p#q2f#q#r4a#r;'S2f;'S;=`H_<%lO2f~?^hf~Op#rpq%aqr(krs2fst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![#r![!]*[!]!a%a!b!}#r#Q#R%a#R#o#r#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~@{lOpBspq9bqrBsrsFkst9btuBsuw9bwx<lxz9bz{7S{|Bs|!O9b!O!PBs!P!Q7S!Q![Bs![!]7S!]!a9b!a!b7S!b!}Bs!}#Q7S#Q#R9b#R#oBs#o#p9b#p#qBs#q#r9b#r;'SBs;'S;=`HX<%lOBs~BvlOpBspq9bqrDnrsFkst9btuBsuw9bwx;exz9bz{7S{|Bs|!O9b!O!PBs!P!Q7S!Q![Bs![!]7S!]!a9b!a!b7S!b!}Bs!}#Q7S#Q#R9b#R#oBs#o#p9b#p#qBs#q#r9b#r;'SBs;'S;=`HX<%lOBs~Dslb~OpBspq9bqrDnrsFkst9btuBsuw9bwx;exz9bz{7S{|Bs|!O9b!O!PBs!P!Q7S!Q![Bs![!]7S!]!a9b!a!b7S!b!}Bs!}#Q7S#Q#R9b#R#oBs#o#p9b#p#qBs#q#r9b#r;'SBs;'S;=`HX<%lOBs~Fpgf~Op+spq'Wqr-_rsBsst'Wtu+suw'Wwx'yxz'W{|+s|!O'W!O!P+s!Q![+s!]!a'W!b!}+s#Q#R'W#R#o+s#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~H[P;=`<%lBs~HbP;=`<%l2f~Hj[!Q~Ow%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!c%a!c!}I`#Q;'S%a;'S;=`(e<%lO%a~Ied!i~Oq%aqrI`rw%awx&Vxz%a{!P%a!P!QJs!Q![I`![!]&e!]!a%a!a!bJs!b!c%a!c!}I`#Q#R%a#R#SI`#S%r%a%r%sI`%s;'S%a;'S;=`(e<%lO%a~JxV!i~qrJs!P!QJs!Q![Js!a!bJs!c!}Js#R#SJs%r%sJs~KbjOp#rpq%aqr(krs#rst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![MS![!]*[!]!a%a!b!c#r!c!}!%b#Q#R%a#R#T#r#T#o!%b#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~MVhOp#rpq%aqr(krs#rst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![MS![!]Nq!]!a%a!b!}#r#Q#R%a#R#o#r#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~NtfOp+spq'Wqs+sst'Wtu!!Yuw'Wwx(_xz'W{|+s|!O'W!O!P+s!Q![!#t!]!a'W!b!}+s#Q#R'W#R#o+s#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~!!]gOp+spq'Wqr-_rs+sst'Wtu+suw'Wwx'yxz'W{|+s|!O'W!O!P+s!Q![!#t!]!a'W!b!}+s#Q#R'W#R#o+s#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~!#ygY~Op+spq'Wqr-_rs+sst'Wtu+suw'Wwx'yxz'W{|+s|!O'W!O!P+s!Q![!#t!]!a'W!b!}+s#Q#R'W#R#o+s#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~!%ejOp#rpq%aqr(krs#rst%atu!'Vuw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![!(t![!]!*e!]!a%a!b!c#r!c!}!2x#Q#R%a#R#T#r#T#o!2x#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~!'YhOp#rpq%aqr(krs#rst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![!(t![!]*[!]!a%a!b!}#r#Q#R%a#R#o#r#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~!(yhV~Op#rpq%aqr(krs#rst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![!(t![!]*[!]!a%a!b!}#r#Q#R%a#R#o#r#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~!*hhOp+spq'Wqs+sst'Wtu!,Suw'Wwx(_xz'W{|+s|!O'W!O!P+s!Q![+s!]!a'W!b!c+s!c!}!-t#Q#R'W#R#T+s#T#o!-t#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~!,ViOp+spq'Wqr-_rs+sst'Wtu+suw'Wwx'yxz'W{|+s|!O'W!O!P+s!Q![+s!]!a'W!b!c+s!c!}!-t#Q#R'W#R#T+s#T#o!-t#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~!-yiX~Op+spq'Wqr-_rs+sst'Wtu+suw'Wwx'yxz'W{|+s|!O'W!O!P+s!Q![+s!]!a'W!b!c+s!c!}!/h#Q#R'W#R#T+s#T#o!/h#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~!/miX~Op+spq'Wqr-_rs+sst'Wtu+suw'Wwx'yxz'W{|+s|!O'W!O!P+s!Q![+s!]!a'W!b!c+s!c!}!1[#Q#R'W#R#T+s#T#o!1[#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~!1agX~Op+spq'Wqr-_rs+sst'Wtu+suw'Wwx'yxz'W{|+s|!O'W!O!P+s!Q![+s!]!a'W!b!}+s#Q#R'W#R#o+s#o#p'W#p#q+s#q#r'W#r;'S+s;'S;=`.{<%lO+s~!2{jOp#rpq%aqr(krs#rst%atu!'Vuw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![!(t![!]!*e!]!a%a!b!c#r!c!}!4m#Q#R%a#R#T#r#T#o!4m#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~!4phOp#rpq%aqr(krs#rst%atu!'Vuw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![!(t![!]!*e!]!a%a!b!}#r#Q#R%a#R#o#r#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#rR!6aZ!WPOw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aR!7XZ!]POw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aR!8PP`Pwx%aR!8XZ[POw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aR!9PZ^POw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%a~!9wO!Z~~!9|h!T~Op#rpq%aqr(krs#rst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![#r![!]*[!]!a%a!b!}#r#Q#R%a#R#o#r#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~!;mZ!h~Ow%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aR!<eZ!UPOw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%a~!=]O![~~!=bh!S~Op#rpq%aqr(krs#rst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![!=]![!]Nq!]!a%a!b!}#r#Q#R%a#R#o#r#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~!?RO!P~R!?WZ!ePOw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aR!@O]!_POw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!_%a!_!`!@w!`!a!Ao!b!}%a#Q;'S%a;'S;=`(e<%lO%aR!@|Z!bPOw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aR!AtZ!`POw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aR!BlZ|POw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aR!Cd]!^POw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!_%a!_!`!D]!`!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aR!DbZ!aPOw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%a~!EYh!V~Op#rpq%aqr(krs#rst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P#r!Q![#r![!]*[!]!a%a!b!}#r#Q#R%a#R#o#r#o#p%a#p#q#r#q#r%a#r;'S#r;'S;=`/R<%lO#r~!FypW~Op#rpq%aqr(krs#rst%atu!'Vuw%awx&Vxy!H}yz%a{|#r|!O%a!O!P!Iu!Q![!Ns![!]!*e!]!a%a!a!b!LO!b!c#r!c!}##O#O#P!LO#Q#R%a#R#S!Iu#S#T#r#T#o##O#o#p%a#p#q#r#q#r%a#r$Lv#r$Lv$Lw!Lm$Lw;'S#r;'S;=`/R<%lO#r~!ISZh~Ow%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%a~!IzpW~Op#rpq%aqr(krs#rst%atu#ruw%awx&Vxy!H}yz%a{|#r|!O%a!O!P!Iu!Q![!Iu![!]*[!]!a%a!a!b!LO!b!c#r!c!}!Iu#O#P!LO#Q#R%a#R#S!Iu#S#T#r#T#o!Iu#o#p%a#p#q#r#q#r%a#r$Lv#r$Lv$Lw!Lm$Lw;'S#r;'S;=`/R<%lO#r~!LTWW~!O!P!LO!Q![!LO!a!b!LO!c!}!LO#O#P!LO#R#S!LO#T#o!LO$Lv$Lw!LO~!LroW~Op#rpq%aqr(krs#rst%atu#ruw%awx&Vxz%a{|#r|!O%a!O!P!Lm!Q![!Lm![!]*[!]!a%a!a!b!LO!b!c#r!c!}!Lm#O#P!LO#Q#R%a#R#S!Lm#S#T#r#T#o!Lm#o#p%a#p#q#r#q#r%a#r$Lv#r$Lv$Lw!Lm$Lw;'S#r;'S;=`/R<%lO#r~!NzpV~W~Op#rpq%aqr(krs#rst%atu#ruw%awx&Vxy!H}yz%a{|#r|!O%a!O!P!Iu!Q![!Ns![!]*[!]!a%a!a!b!LO!b!c#r!c!}!Iu#O#P!LO#Q#R%a#R#S!Iu#S#T#r#T#o!Iu#o#p%a#p#q#r#q#r%a#r$Lv#r$Lv$Lw!Lm$Lw;'S#r;'S;=`/R<%lO#r~##TpW~Op#rpq%aqr(krs#rst%atu!'Vuw%awx&Vxy!H}yz%a{|#r|!O%a!O!P!Iu!Q![!Ns![!]!*e!]!a%a!a!b!LO!b!c#r!c!}#%X#O#P!LO#Q#R%a#R#S!Iu#S#T#r#T#o#%X#o#p%a#p#q#r#q#r%a#r$Lv#r$Lv$Lw!Lm$Lw;'S#r;'S;=`/R<%lO#r~#%^pW~Op#rpq%aqr(krs#rst%atu!'Vuw%awx&Vxy!H}yz%a{|#r|!O%a!O!P!Iu!Q![!Ns![!]!*e!]!a%a!a!b!LO!b!c#r!c!}!Iu#O#P!LO#Q#R%a#R#S!Iu#S#T#r#T#o!Iu#o#p%a#p#q#r#q#r%a#r$Lv#r$Lv$Lw!Lm$Lw;'S#r;'S;=`/R<%lO#r~#'iW!h~W~!O!P!LO!Q![!LO!a!b!LO!c!}!LO#O#P!LO#R#S!LO#T#o!LO$Lv$Lw!LOR#(WZ!YPOw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aR#)OZ!cPOw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%aR#)vZ!fPOw%awx&Vxz%a{!P%a!Q![%a![!]&e!]!a%a!b!}%a#Q;'S%a;'S;=`(e<%lO%a",
   tokenizers: [isIntersecop, separator, decimalSeparator, 0, 1],
   topRules: {"Program":[0,4]},
-  specialized: [{term: 70, get: (value, stack) => (isArrayRowSeparator(value) << 1), external: isArrayRowSeparator},{term: 71, get: (value, stack) => (isRefErrorToken(value) << 1), external: isRefErrorToken},{term: 8, get: (value, stack) => (desambiguateNameToken(value) << 1), external: desambiguateNameToken}],
+  specialized: [{term: 70, get: (value, stack) => (isArrayRowSeparator(value) << 1), external: isArrayRowSeparator},{term: 71, get: (value, stack) => (isErrors(value) << 1), external: isErrors},{term: 8, get: (value, stack) => (desambiguateNameToken(value) << 1), external: desambiguateNameToken}],
   tokenPrec: 1044
 });
 
@@ -178,7 +178,7 @@ const spreadsheetLanguage = LRLanguage.define({
     })
 });
 const changeIdiom = setLezerIdiom, changeDecimalSeparator = setDecimalSeparator;
-function spreadsheet(idiom = 'en-US', decimalSeparator = ".") {
+function spreadsheet({ idiom = 'en-US', decimalSeparator = '.' } = {}) {
     setLezerIdiom(idiom);
     setDecimalSeparator(decimalSeparator);
     return new LanguageSupport(spreadsheetLanguage);
