@@ -9,7 +9,7 @@ import {
 } from '@codemirror/language';
 import { styleTags, tags as t } from '@lezer/highlight';
 
-export { setLezerIdiom } from './tokens';
+import { setLezerIdiom, supportedIdioms } from './tokens';
 
 export const spreadsheetLanguage = LRLanguage.define({
   parser: parser.configure({
@@ -41,6 +41,9 @@ export const spreadsheetLanguage = LRLanguage.define({
   })
 });
 
-export function spreadsheet() {
+export const changeIdiom = setLezerIdiom;
+
+export function spreadsheet(idiom: supportedIdioms = 'en-US') {
+  setLezerIdiom(idiom);
   return new LanguageSupport(spreadsheetLanguage);
 }

@@ -1,4 +1,4 @@
-import {spreadsheetLanguage, setLezerIdiom} from "../dist/index.js"
+import {spreadsheetLanguage, changeIdiom} from "../dist/index.js"
 import {fileTests} from "@lezer/generator/dist/test"
 
 import * as fs from "fs"
@@ -28,7 +28,7 @@ for (let idiom of fs.readdirSync(i18nDir)) {
     describe(name, () => {
       for (let {name, run} of fileTests(fs.readFileSync(path.join(i18nDir, idiom, file), "utf8"), file))
         it(name, () => {
-          setLezerIdiom(idiom);
+          changeIdiom(idiom);
           return run(spreadsheetLanguage.parser);
         })
     })

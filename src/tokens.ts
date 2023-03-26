@@ -29,7 +29,7 @@ const backSlash = 92,
     );
   };
 
-type supportedIdioms = 'en-US' | 'pt-BR';
+export type supportedIdioms = 'en-US' | 'pt-BR';
 let currIdiom: supportedIdioms = 'en-US';
 // Always uppercase
 // Source: https://en.excel-translator.de/
