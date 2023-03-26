@@ -29,13 +29,16 @@ const backSlash = 92,
     );
   };
 
-export type supportedIdioms = 'en-US' | 'pt-BR';
-let currIdiom: supportedIdioms = 'en-US';
+export type TdecimalSeparator = '.' | ',';
+let currDecimalSeparator = '.';
+
+export type TsupportedIdioms = 'en-US' | 'pt-BR';
+let currIdiom: TsupportedIdioms = 'en-US';
 // Always uppercase
 // Source: https://en.excel-translator.de/
 const i18n: {
   [key: string]: {
-    [key in supportedIdioms]: string[] | string | number;
+    [key in TsupportedIdioms]: string[] | string | number;
   };
 } = {
   BoolToken: {
@@ -67,14 +70,6 @@ const i18n: {
       '#OBTENDO_DADOS',
       '#DESPEJAR!'
     ]
-  },
-  separator: {
-    'en-US': comma,
-    'pt-BR': semiColon
-  },
-  arrayRowSeparator: {
-    'en-US': ',',
-    'pt-BR': '\\'
   }
 };
 
@@ -112,18 +107,39 @@ export const isIntersecop = new ExternalTokenizer(
   { contextual: true }
 );
 
+export const decimalSeparator = new ExternalTokenizer(
+  (input: InputStream, stack: Stack) => {
+    const { next } = input,
+      charCodeDecimalSeparator = {
+        '.': dot,
+        ',': comma
+      }[currDecimalSeparator];
+    if (next === charCodeDecimalSeparator)
+      return input.acceptToken(tokens.decimalSeparator, 1);
+  }
+);
+
 export const separator = new ExternalTokenizer(
   (input: InputStream, stack: Stack) => {
-    const { next } = input;
-    if (i18n.separator[currIdiom] === next)
-      return input.acceptToken(tokens.separator, 1);
+    const { next } = input,
+      // Depending on the decimal separator, the separator changes
+      currSeparator = {
+        // Key is the decimal separator and Value is the separator
+        '.': comma,
+        ',': semiColon
+      }[currDecimalSeparator];
+    if (next === currSeparator) return input.acceptToken(tokens.separator, 1);
   }
 );
 
 export const isArrayRowSeparator = (value: string, stack: Stack): number => {
-  return value === i18n.arrayRowSeparator[currIdiom]
-    ? tokens['arrayRowSeparator']
-    : -1;
+  // Depending on the decimal separator, the row separator of the array changes
+  const currArrayRowSeparator = {
+    // Key is the decimal separator and Value is the array row separator
+    '.': ',',
+    ',': '\\'
+  }[currDecimalSeparator];
+  return value === currArrayRowSeparator ? tokens['arrayRowSeparator'] : -1;
 };
 
 export const desambiguateNameToken = (value: string, stack: Stack): number => {
@@ -149,5 +165,9 @@ export const isRefErrorToken = (value: string, stack: Stack): number => {
   return -1;
 };
 
-export const setLezerIdiom = (newIdiom: supportedIdioms): supportedIdioms =>
+export const setLezerIdiom = (newIdiom: TsupportedIdioms): TsupportedIdioms =>
   (currIdiom = newIdiom);
+
+export const setDecimalSeparator = (
+  newDecimalSeparator: TdecimalSeparator
+): TdecimalSeparator => (currDecimalSeparator = newDecimalSeparator);

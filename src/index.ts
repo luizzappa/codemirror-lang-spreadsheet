@@ -9,7 +9,12 @@ import {
 } from '@codemirror/language';
 import { styleTags, tags as t } from '@lezer/highlight';
 
-import { setLezerIdiom, supportedIdioms } from './tokens';
+import {
+  setLezerIdiom,
+  TsupportedIdioms,
+  setDecimalSeparator,
+  TdecimalSeparator
+} from './tokens';
 
 export const spreadsheetLanguage = LRLanguage.define({
   parser: parser.configure({
@@ -41,9 +46,14 @@ export const spreadsheetLanguage = LRLanguage.define({
   })
 });
 
-export const changeIdiom = setLezerIdiom;
+export const changeIdiom = setLezerIdiom,
+  changeDecimalSeparator = setDecimalSeparator;
 
-export function spreadsheet(idiom: supportedIdioms = 'en-US') {
+export function spreadsheet(
+  idiom: TsupportedIdioms = 'en-US',
+  decimalSeparator: TdecimalSeparator = '.'
+) {
   setLezerIdiom(idiom);
+  setDecimalSeparator(decimalSeparator);
   return new LanguageSupport(spreadsheetLanguage);
 }

@@ -14,17 +14,17 @@ formula {
   | OpenParen formula CloseParen
 }
 
-Constant { NumberToken | TextToken | BoolToken | ErrorToken }
+Constant { Number | TextToken | BoolToken | ErrorToken }
 
 // Arrays
 ConstantArray { openCurlyParen ArrayColumns closeCurlyParen }
 ArrayColumns { ArrayRows (arrayColumnSeparator ArrayRows)* }
 ArrayRows { ArrayConstant (arrayRowSeparator ArrayConstant)* }
-ArrayConstant { Constant | arrayPrefixOp NumberToken | RefErrorToken }
+ArrayConstant { Constant | arrayPrefixOp Number | RefErrorToken }
 arrayPrefixOp { plusop | minop | at }
 
 arrayColumnSeparator { semicolon }
-// Depending on the idiom, the separator of an array row changes
+// Depending on the decimal seperator, the separator of an array row changes
 @external specialize { arrayRowSeparatorToken } isArrayRowSeparator from "./tokens" {
   arrayRowSeparator
 }
@@ -94,7 +94,7 @@ Union { Reference (!union separator Reference)+ }
 
 @external tokens isIntersecop from "./tokens" { intersecop }
 
-// Depending on the idiom, the separator changes
+// Depending on the decimal seperator, the separator changes
 @external tokens separator from "./tokens" { separator }
 
 // Depending on the idiom, errors change
@@ -106,6 +106,12 @@ Union { Reference (!union separator Reference)+ }
 // Depending on the idiom, boolean changes
 @external specialize { NameToken } desambiguateNameToken from "./tokens" {
   BoolToken
+}
+
+@external tokens decimalSeparator from "./tokens" { decimalSeparator }
+Number {
+  numberToken+ (decimalSeparator numberToken*)? 
+  | decimalSeparator numberToken
 }
 
 @precedence {
@@ -130,7 +136,7 @@ Union { Reference (!union separator Reference)+ }
     MultipleSheetsToken,
     TextToken,
     SheetToken,
-    NumberToken,
+    numberToken,
     Function,
     VerticalRangeToken,
     CellToken,
@@ -157,7 +163,6 @@ Union { Reference (!union separator Reference)+ }
   closeCurlyParen { "}" }
   openCurlyParen { "{" }
   QuoteS { "'" }
-  decimalSeparator { "." }
 
   // Operators
   mulop { "*" }
@@ -175,9 +180,10 @@ Union { Reference (!union separator Reference)+ }
   lteop { "<=" }
 
   // Literals
-  NumberToken { 
-   @digit+ (decimalSeparator @digit*)? 
-   | decimalSeparator @digit+
+  numberToken { 
+    @digit+
+   //@digit+ (decimalSeparator @digit*)? 
+   //| decimalSeparator @digit+
   }
   TextToken { "\"" ( "\"\"" | !["])* "\"" }
   refHashtag { hash $[A-Z]+ $[A-Z0-9!/_?Ú]* }
