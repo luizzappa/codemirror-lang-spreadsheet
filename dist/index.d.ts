@@ -8,4 +8,4 @@ type Toptions = {
     decimalSeparator?: TdecimalSeparator;
 };
 declare function spreadsheet({ idiom, decimalSeparator }?: Toptions): LanguageSupport;
-export { spreadsheetLanguage, changeIdiom, changeDecimalSeparator, spreadsheet };
+export { spreadsheetLanguage, changeIdiom, changeDecimalSeparator, Toptions, spreadsheet };
