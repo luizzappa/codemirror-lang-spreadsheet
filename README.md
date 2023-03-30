@@ -48,7 +48,7 @@ Currently supported:
 - en-US
 - pt-BR
 
-It's pretty simple to add support for other languages. See the contribution section.
+It's pretty simple to add support for other idioms. See the contribution section.
 
 ## Contribution 
 
