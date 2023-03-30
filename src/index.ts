@@ -49,7 +49,7 @@ export const spreadsheetLanguage = LRLanguage.define({
 export const changeIdiom = setLezerIdiom,
   changeDecimalSeparator = setDecimalSeparator;
 
-type Toptions = {
+export type Toptions = {
   idiom?: TsupportedIdioms;
   decimalSeparator?: TdecimalSeparator;
 };
