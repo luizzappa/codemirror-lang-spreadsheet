@@ -4,19 +4,18 @@ Implements spreadsheet functions support for the [CodeMirror v6](https://codemir
 
 To build this I used the paper  ["A Grammar for Spreadsheet Formulas Evaluated on Two Large Datasets"](https://fenia266781730.files.wordpress.com/2019/01/07335408.pdf) and [XLParser](https://github.com/spreadsheetlab/XLParser) as a basis.
 
-### Features
+## Features
 
 🔠 Support for different idioms ​​(and easily extensible to include new ones)
-🖩 Support for different decimal separators
+🧮 Support for different decimal separators
 
-
-### Installation
+## Installation
 
 ```
 npm install codemirror-lang-spreadsheet
 ```
 
-### Usage
+## Usage
 
 First import as shown below:
 ```
@@ -40,7 +39,7 @@ new EditorView({
 
 👉 For a complete demo with **highlighting**, **autocomplete** and **prettier** go to: [codemirror-app-spreadsheet](https://github.com/luizzappa/codemirror-app-spreadsheet)
 
-### Supported idioms 🗣️
+## Supported idioms 🗣️
 
 Idioms are used for keywords like booleans (`TRUE`, `FALSE`) and error tokens (like `#REF!`, `#NAME!`, ...).
 
@@ -50,7 +49,7 @@ Currently supported:
 
 It's pretty simple to add support for other languages. See the contribution section.
 
-### Contribution 
+## Contribution 
 
 Contributions are welcome, but for every feature added, tests must be added.
 
@@ -64,9 +63,11 @@ Running the tests:
 npm run test
 ```
 
-To add support for a new language follow the steps below:
+### Extending idiom
 
-In the `tokens.ts` file, add the language as a new supported type:
+To add support for a new idiom follow the steps below:
+
+In the `tokens.ts` file, add the idiom as a new supported type:
 ```
 TsupportedIdioms = 'en-US' | 'pt-BR'; 
 ```
@@ -92,6 +93,6 @@ Now it is necessary to create tests. Create a new folder named after the idiom i
 
 When extending support for a new idiom open a PR 💙
 
-### To Do:
+## To Do:
 
-- Add fallback to default language (en-US) when tokens are the same across idioms. This will reduce the packet size.
+- Add fallback to default idiom (en-US) when tokens are the same across idioms. This will reduce the packet size.
