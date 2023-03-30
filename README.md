@@ -7,6 +7,7 @@ To build this I used the paper  ["A Grammar for Spreadsheet Formulas Evaluated o
 ## Features
 
 🔠 Support for different idioms ​​(and easily extensible to include new ones)
+
 🧮 Support for different decimal separators
 
 ## Installation
