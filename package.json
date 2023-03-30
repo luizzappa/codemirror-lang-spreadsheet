@@ -1,6 +1,6 @@
 {
   "name": "codemirror-lang-spreadsheet",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Spreadsheet language support for CodeMirror",
   "homepage": "https://github.com/luizzappa/codemirror-lang-spreadsheet",
   "author": {
