@@ -3,3 +3,7 @@
 /node_modules
 rollup.config.js
 tsconfig.json
+.eslintignore
+.eslintrc.cjs
+.gitignore
+.prettierrc
