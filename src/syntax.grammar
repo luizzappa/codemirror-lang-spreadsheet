@@ -11,7 +11,7 @@ formula {
   | Constant 
   | FunctionCall 
   | ConstantArray 
-  | OpenParen formula CloseParen
+  | OpenParen formula? CloseParen
 }
 
 Constant { Number | TextToken | BoolToken | ErrorToken }

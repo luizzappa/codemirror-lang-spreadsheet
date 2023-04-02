@@ -94,6 +94,46 @@ Program(
   )
 )
 
+# Single FunctionCall arguments with parentheses
+
+SUM((),(2),(A1),(A1:A4),(2+2))
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(OpenParen,CloseParen),
+      Separator,
+      Argument(OpenParen,Constant(Number),CloseParen),
+      Separator,
+      Argument(OpenParen,Reference(ReferenceItem(CellToken)),CloseParen),
+      Separator,
+      Argument(
+        OpenParen,
+        Reference(
+          ReferenceFunctionCall(
+            Reference(ReferenceItem(CellToken)),
+            Reference(ReferenceItem(CellToken))
+          )
+        ),
+        CloseParen
+      ),
+      Separator,
+      Argument(
+        OpenParen,
+        FunctionCall(
+          Constant(Number),
+          Constant(Number)
+        ),
+        CloseParen
+      )
+    ),
+    CloseParen
+  )
+)
+
 # Nested FunctionCall 
 
 SUM(1,2 + SUM(3, 4), 1)
