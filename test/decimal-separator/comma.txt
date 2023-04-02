@@ -19,7 +19,9 @@ Program(
     Function,
     Arguments(
       Argument,
+      Separator,
       Argument,
+      Separator,
       Argument
     ),
     CloseParen
@@ -57,6 +59,7 @@ Program(
       Argument(
         Constant(Number)
       ),
+      Separator,
       Argument(
         Constant(Number)
       )
@@ -76,7 +79,9 @@ Program(
     Function,
     Arguments(
       Argument(Reference(ReferenceItem(CellToken))),
+      Separator,
       Argument(Reference(ReferenceItem(CellToken))),
+      Separator,
       Argument(Constant(TextToken))),
     CloseParen
   )
@@ -98,11 +103,13 @@ Program(
             CellToken
           )
         ),
+        Separator,
         Reference(
           ReferenceItem(
             CellToken
           )
         ),
+        Separator,
         Reference(
           ReferenceItem(
             CellToken

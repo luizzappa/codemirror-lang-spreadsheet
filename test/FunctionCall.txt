@@ -65,6 +65,7 @@ Program(
       Argument(
         Constant(TextToken)
       ),
+      Separator,
       Argument(
         Constant(Number)
       )
@@ -84,7 +85,9 @@ Program(
     Function,
     Arguments(
       Argument,
+      Separator,
       Argument,
+      Separator,
       Argument
     ),
     CloseParen
@@ -104,6 +107,7 @@ Program(
       Argument(
         Constant(Number)
       ),
+      Separator,
       Argument(
         FunctionCall(
           Constant(Number),
@@ -113,6 +117,7 @@ Program(
               Argument(
                 Constant(Number)
               ),
+              Separator,
               Argument(
                 Constant(Number)
               )
@@ -121,6 +126,7 @@ Program(
           )
         )
       ),
+      Separator,
       Argument(
         Constant(Number)
       )

@@ -119,7 +119,7 @@ export const decimalSeparator = new ExternalTokenizer(
   }
 );
 
-export const separator = new ExternalTokenizer(
+export const Separator = new ExternalTokenizer(
   (input: InputStream, stack: Stack) => {
     const { next } = input,
       // Depending on the decimal separator, the separator changes
@@ -128,7 +128,7 @@ export const separator = new ExternalTokenizer(
         '.': comma,
         ',': semiColon
       }[currDecimalSeparator];
-    if (next === currSeparator) return input.acceptToken(tokens.separator, 1);
+    if (next === currSeparator) return input.acceptToken(tokens.Separator, 1);
   }
 );
 

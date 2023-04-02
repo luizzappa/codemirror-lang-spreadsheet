@@ -51,7 +51,7 @@ formulaInfixOp {
   | formula !comparsion lteop formula
 }
 
-Arguments { Argument (separator Argument)* }
+Arguments { Argument (Separator Argument)* }
 Argument { formula | "" }
 
 // References
@@ -90,12 +90,12 @@ ReferenceFunctionCall {
 
 }
 
-Union { Reference (!union separator Reference)+ }
+Union { Reference (!union Separator Reference)+ }
 
 @external tokens isIntersecop from "./tokens" { intersecop }
 
 // Depending on the decimal seperator, the separator changes
-@external tokens separator from "./tokens" { separator }
+@external tokens Separator from "./tokens" { Separator }
 
 // Depending on the idiom, errors change
 @external specialize { refHashtag } isErrors from "./tokens" {

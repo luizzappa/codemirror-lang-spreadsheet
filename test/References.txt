@@ -276,11 +276,13 @@ Program(
             CellToken
           )
         ),
+        Separator,
         Reference(
           ReferenceItem(
             CellToken
           )
         ),
+        Separator,
         Reference(
           ReferenceItem(
             CellToken
@@ -308,6 +310,7 @@ Program(
             CellToken
           )
         ),
+        Separator,
         Reference(
           ReferenceFunctionCall(
             OpenParen,
@@ -317,6 +320,7 @@ Program(
                   CellToken
                 )
               ),
+              Separator,
               Reference(
                 ReferenceItem(
                   CellToken
