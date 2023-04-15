@@ -83,11 +83,14 @@ referencePrefix {
 }
 
 ReferenceFunctionCall {
-   referenceWrap !range colon referenceWrap
- | referenceWrap !union intersecop referenceWrap
- | OpenParen Union CloseParen
- | Reference !unaryPostFix hash
+  RangeToken
+  | referenceWrap !union intersecop referenceWrap
+  | OpenParen Union CloseParen
+  | Reference !unaryPostFix hash
+}
 
+RangeToken { 
+  referenceWrap !range colon referenceWrap
 }
 
 Union { Reference (!union Separator Reference)+ }
