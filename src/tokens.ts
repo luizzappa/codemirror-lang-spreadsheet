@@ -99,9 +99,10 @@ export const isIntersecop = new ExternalTokenizer(
     if (
       next === openParen ||
       isAsciiLeter(next) ||
+      isDigit(next) ||
       before === backSlash ||
       before === underscore
-    )
+    ) 
       return input.acceptToken(tokens.intersecop);
   },
   { contextual: true }
