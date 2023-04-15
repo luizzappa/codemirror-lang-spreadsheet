@@ -418,3 +418,132 @@ Program(
     CloseParen
   )
 )
+
+# Intersect operator with range and horizontal range
+
+SUM(A1:A2 2:2)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Reference(
+          ReferenceFunctionCall(
+            Reference(
+              ReferenceFunctionCall(
+                RangeToken(
+                  Reference(ReferenceItem(CellToken)),
+                  Reference(ReferenceItem(CellToken))
+                )
+              )
+            ),
+            Reference(ReferenceItem(HorizontalRangeToken))
+          )
+        )
+      )
+    ),
+    CloseParen
+  )
+)
+
+# Intersect operator with range and vertical range
+
+SUM(A1:A2 B:B)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Reference(
+          ReferenceFunctionCall(
+            Reference(
+              ReferenceFunctionCall(
+                RangeToken(
+                  Reference(ReferenceItem(CellToken)),
+                  Reference(ReferenceItem(CellToken))
+                )
+              )
+            ),
+            Reference(ReferenceItem(VerticalRangeToken))
+          )
+        )
+      )
+    ),
+    CloseParen
+  )
+)
+
+# Intersect operator with horizontal and vertical range
+
+SUM(11:12 B:B)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Reference(
+          ReferenceFunctionCall(
+            Reference(ReferenceItem(HorizontalRangeToken)),
+            Reference(ReferenceItem(VerticalRangeToken))
+          )
+        )
+      )
+    ),
+    CloseParen
+  )
+)
+
+# Intersect operator with two horizontal range
+
+SUM(11:12 2:2)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Reference(
+          ReferenceFunctionCall(
+            Reference(ReferenceItem(HorizontalRangeToken)),
+            Reference(ReferenceItem(HorizontalRangeToken)),
+          )
+        )
+      )
+    ),
+    CloseParen
+  )
+)
+
+# Intersect operator with two vertical range
+
+SUM(A:A B:B)
+
+===>
+
+Program(
+  FunctionCall(
+    Function,
+    Arguments(
+      Argument(
+        Reference(
+          ReferenceFunctionCall(
+            Reference(ReferenceItem(VerticalRangeToken)),
+            Reference(ReferenceItem(VerticalRangeToken)),
+          )
+        )
+      )
+    ),
+    CloseParen
+  )
+)
