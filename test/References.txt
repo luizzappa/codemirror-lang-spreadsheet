@@ -203,14 +203,16 @@ A1:B5
 Program(
   Reference(
     ReferenceFunctionCall(
-      Reference(
-        ReferenceItem(
-          CellToken
-        )
-      ),
-      Reference(
-        ReferenceItem(
-          CellToken
+      RangeToken(
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
         )
       )
     )
@@ -227,14 +229,16 @@ Program(
   OpenParen,
   Reference(
     ReferenceFunctionCall(
-      Reference(
-        ReferenceItem(
-          CellToken
-        )
-      ),
-      Reference(
-        ReferenceItem(
-          CellToken
+      RangeToken(
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
         )
       )
     )
@@ -422,15 +426,17 @@ Sheet1:Sheet2!B7:D13
 Program(
   Reference(
     ReferenceFunctionCall(
-      Reference(
-        MultipleSheetsToken
-        ReferenceItem(
-          CellToken
-        )
-      ),
-      Reference(
-        ReferenceItem(
-          CellToken
+      RangeToken(
+        Reference(
+          MultipleSheetsToken
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
         )
       )
     )
@@ -446,16 +452,18 @@ Program(
 Program(
   Reference(
     ReferenceFunctionCall(
-      Reference(
-        QuoteS,
-        MultipleSheetsQuotedToken,
-        ReferenceItem(
-          CellToken
-        )
-      ),
-      Reference(
-        ReferenceItem(
-          CellToken
+      RangeToken(
+        Reference(
+          QuoteS,
+          MultipleSheetsQuotedToken,
+          ReferenceItem(
+            CellToken
+          )
+        ),
+        Reference(
+          ReferenceItem(
+            CellToken
+          )
         )
       )
     )

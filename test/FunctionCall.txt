@@ -114,8 +114,10 @@ Program(
         OpenParen,
         Reference(
           ReferenceFunctionCall(
-            Reference(ReferenceItem(CellToken)),
-            Reference(ReferenceItem(CellToken))
+            RangeToken(
+              Reference(ReferenceItem(CellToken)),
+              Reference(ReferenceItem(CellToken))
+            )
           )
         ),
         CloseParen
@@ -356,14 +358,18 @@ Program(
           ReferenceFunctionCall(
             Reference(
               ReferenceFunctionCall(
-                Reference(ReferenceItem(CellToken)),
-                Reference(ReferenceItem(CellToken))
+                RangeToken(
+                  Reference(ReferenceItem(CellToken)),
+                  Reference(ReferenceItem(CellToken))
+                )
               )
             ),
             Reference(
               ReferenceFunctionCall(
-                Reference(ReferenceItem(CellToken)),
-                Reference(ReferenceItem(CellToken))
+                RangeToken(
+                  Reference(ReferenceItem(CellToken)),
+                  Reference(ReferenceItem(CellToken))
+                )
               )
             )
           )
@@ -387,22 +393,24 @@ Program(
       Argument(
         Reference(
           ReferenceFunctionCall(
-            OpenParen,
-            Reference(
-              ReferenceFunctionCall(
-                Reference(ReferenceItem(NameToken)),
-                Reference(ReferenceItem(NameToken))
-              )
-            ),
-            CloseParen,
-            OpenParen,
-            Reference(
-              ReferenceFunctionCall(
-                Reference(ReferenceItem(NameToken)),
-                Reference(ReferenceItem(NameToken))
-              )
-            ),
-            CloseParen
+            RangeToken(
+              OpenParen,
+              Reference(
+                ReferenceFunctionCall(
+                  Reference(ReferenceItem(NameToken)),
+                  Reference(ReferenceItem(NameToken))
+                )
+              ),
+              CloseParen,
+              OpenParen,
+              Reference(
+                ReferenceFunctionCall(
+                  Reference(ReferenceItem(NameToken)),
+                  Reference(ReferenceItem(NameToken))
+                )
+              ),
+              CloseParen
+            )
           )
         )
       )
