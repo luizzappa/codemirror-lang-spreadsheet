@@ -102,7 +102,7 @@ export const isIntersecop = new ExternalTokenizer(
       isDigit(next) ||
       before === backSlash ||
       before === underscore
-    ) 
+    )
       return input.acceptToken(tokens.intersecop);
   },
   { contextual: true }
