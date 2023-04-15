@@ -80,6 +80,7 @@ const isIntersecop = new lr.ExternalTokenizer((input, stack) => {
     }
     if (next === openParen ||
         isAsciiLeter(next) ||
+        isDigit(next) ||
         before === backSlash ||
         before === underscore)
         return input.acceptToken(intersecop);
