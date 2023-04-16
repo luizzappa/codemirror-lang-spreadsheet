@@ -28,6 +28,7 @@ export const spreadsheetLanguage = LRLanguage.define({
       styleTags({
         // References
         'Reference/...': t.color,
+        'RangeToken!': t.tagName,
         CellToken: t.tagName,
         VerticalRangeToken: t.tagName,
         HorizontalRangeToken: t.tagName,
