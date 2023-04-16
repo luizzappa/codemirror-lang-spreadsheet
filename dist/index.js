@@ -161,6 +161,9 @@ const spreadsheetLanguage = LRLanguage.define({
             styleTags({
                 // References
                 'Reference/...': tags.color,
+                CellToken: tags.tagName,
+                VerticalRangeToken: tags.tagName,
+                HorizontalRangeToken: tags.tagName,
                 RefErrorToken: tags.invalid,
                 // Constants
                 BoolToken: tags.bool,
