@@ -165,6 +165,7 @@ const spreadsheetLanguage = language.LRLanguage.define({
             highlight.styleTags({
                 // References
                 'Reference/...': highlight.tags.color,
+                'RangeToken!': highlight.tags.tagName,
                 CellToken: highlight.tags.tagName,
                 VerticalRangeToken: highlight.tags.tagName,
                 HorizontalRangeToken: highlight.tags.tagName,
